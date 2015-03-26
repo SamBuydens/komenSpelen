@@ -10,9 +10,38 @@ class BandRatingsDAO
     public function __construct()
     {
         $this->pdo = DatabasePDO::getInstance();
+        $this->bandsDAO = new BandsDAO();
     }
 
     /* --- Getters ------------------------------------------- */
+
+    public function getRatingQuota(){
+        $sql = "SELECT * FROM `kmn_rating_quota`";
+        $qry = $this->pdo->prepare($sql);
+
+        if($qry->execute()){
+            $ratingQuota = $qry->fetchAll(PDO::FETCH_ASSOC);
+            if(!empty($ratingQuota)){
+                return $ratingQuota;
+            }
+        }
+        return array();
+    }
+
+    public function getRatingQuotaById($id){
+        $sql = "SELECT * FROM `kmn_rating_quota`
+                WHERE `kmn_rating_quota`.`id` = :id";
+        $qry = $this->pdo->prepare($sql);
+        $qry -> bindValue(':id', $id);
+
+        if($qry->execute()){
+            $ratingQuota = $qry->fetch(PDO::FETCH_ASSOC);
+            if(!empty($ratingQuota)){
+                return $ratingQuota;
+            }
+        }
+        return array();
+    }
 
     public function getRatingById($id){
         $sql = "SELECT `kmn_ratings`.*, `kmn_rating_quota`.`quota`
@@ -78,9 +107,8 @@ class BandRatingsDAO
     }
 
     public function getRatingDetails($rating){
-        $bandsDAO = new BandsDAO();
-        $rating['band_scored'] = $bandsDAO -> getBandById($rating['rated_id']);
-        $rating['band_rater'] = $bandsDAO -> getBandById($rating['rater_id']);
+        $rating['band_scored'] = $this -> bandsDAO -> getBandById($rating['rated_id']);
+        $rating['band_rater'] = $this -> bandsDAO -> getBandById($rating['rater_id']);
 
         return $rating;
     }
@@ -97,35 +125,83 @@ class BandRatingsDAO
         return $ratings;
     }
 
-    /* --- Setters ------------------------------------------- */
+    /* --- Setters & Validation ------------------------------------------- */
 
-    public function insertRating($rated_id, $rater_id, $quota_id, $score){
-        $sql = "INSERT INTO kmn_ratings(rated_id, rater_id, quota_id, score)
-                VALUES(:rated_id, :rater_id, :quota_id, :score)";
-        $qry = $this->pdo->prepare($sql);
-        $qry -> bindValue(':rater_id', $rater_id);
-        $qry -> bindValue(':rated_id', $rated_id);
-        $qry -> bindValue(':quota_id', $quota_id);
-        $qry -> bindValue(':score', $score);
+    public function insertRating($postData){
+        $errors = $this -> validateScoringData($postData);
+        if(empty($errors)){
+            $sql = "INSERT INTO kmn_ratings(rated_id, rater_id, quota_id, score)
+                    VALUES(:rated_id, :rater_id, :quota_id, :score)";
+            $qry = $this->pdo->prepare($sql);
+            $qry -> bindValue(':rater_id', $postData['rater_id']);
+            $qry -> bindValue(':rated_id', $postData['rated_id']);
+            $qry -> bindValue(':quota_id', $postData['quota_id']);
+            $qry -> bindValue(':score', $postData['score']);
 
-        if($qry->execute()){
-            return $this -> getRatingById($this->pdo->lastInsertId());
+            if($qry->execute()){
+                return $this -> getRatingById($this->pdo->lastInsertId());
+            }
         }
         return array();
     }
 
-    public function updateRating($id, $score){
-        $sql = "UPDATE `komen`.`kmn_ratings` 
-                SET `score` = :score
-                WHERE `kmn_ratings`.`id` = :id";
-        $qry = $this->pdo->prepare($sql);
-        $qry -> bindValue(':id', $id);
-        $qry -> bindValue(':score', $score);
+    public function updateRating($id, $putData){
+        $errors = $this -> validateScoringData($putData);
+        if(empty($errors)){
+            $sql = "UPDATE `komen`.`kmn_ratings` 
+                    SET `score` = :score
+                    WHERE `kmn_ratings`.`id` = :id";
+            $qry = $this->pdo->prepare($sql);
+            $qry -> bindValue(':id', $id);
+            $qry -> bindValue(':score', $putData['score']);
 
-        if($qry->execute()){
-            return $this -> getRatingById($id);
+            if($qry->execute()){
+                return $this -> getRatingById($id);
+            }
         }
         return array();
+    }
+
+    public function validateRatingData($data) {
+        $errors = validateScoringData($data);
+
+        if(empty($data['rater_id'])) {
+            $errors['rater_id'] = 'no rating band set';
+        }elseif(empty($this -> bandsDAO -> getBandById($data['rater_id']))){
+            $errors['rater_id'] = 'no band with such id';
+        }
+
+        if(empty($data['rated_id'])) {
+            $errors['rated_id'] = 'no band selected to rate';
+        }elseif(empty($this -> bandsDAO -> getBandById($data['rated_id']))){
+            $errors['rated_id'] = 'no band with such id';
+        }
+
+        if(empty($data['quota_id'])) {
+            $errors['quota_id'] = 'no rating quota selected';
+        }elseif(empty($this -> getRatingQuotaById($data['quota_id']))){
+            $errors['quota_id'] = 'selected rating quota does not exist';
+        }
+
+        return $errors;
+    }
+
+    public function validateScoringData($data) {
+        $errors = array();
+
+        if(empty($this -> bandsDAO -> checkUserSession())){
+            $errors['user'] = 'please log in to continue';
+        }
+
+        if(empty($data['score'])) {
+            $errors['score'] = 'no new score provided';
+        }elseif($data['score'] > 10){
+            $errors['score'] = 'cannot score higher than 10';
+        }elseif($data['score'] < 0){
+            $errors['score'] = 'cannot score lower than 0';
+        }
+
+        return $errors;
     }
 
     /* --- Delete ------------------------------------------- */

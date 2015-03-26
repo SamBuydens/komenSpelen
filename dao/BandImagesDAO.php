@@ -10,6 +10,7 @@ class BandImagesDAO
     public function __construct()
     {
         $this->pdo = DatabasePDO::getInstance();
+        //$this->bandBattlesDAO = new BandBattlesDAO();
     }
 
     /* --- Getters ------------------------------------------- */
@@ -60,22 +61,58 @@ class BandImagesDAO
         return array();
     }
 
-    /* --- Setters ------------------------------------------- */
+    /* --- Setters & Validation ------------------------------------------- */
 
-    public function insertBandImage($bandbattle_id, $uploader_id, $filename, $width, $height){
-        $sql = "INSERT INTO kmn_band_images(bandbattle_id, uploader_id, filename, width, height)
-                VALUES(:bandbattle_id, :uploader_id, :filename, :width, :height)";
-        $qry = $this->pdo->prepare($sql);
-        $qry -> bindValue(':filename', $filename);
-        $qry -> bindValue(':bandbattle_id', $bandbattle_id);
-        $qry -> bindValue(':uploader_id', $uploader_id);
-        $qry -> bindValue(':width', $width);
-        $qry -> bindValue(':height', $height);
+    public function insertBandImage($postData){
+        $errors = $this -> validateImageData($postData);
+        if(empty($errors)){
+            $sql = "INSERT INTO kmn_band_images(bandbattle_id, uploader_id, filename, width, height)
+                    VALUES(:bandbattle_id, :uploader_id, :filename, :width, :height)";
+            $qry = $this->pdo->prepare($sql);
+            $qry -> bindValue(':filename', $postData['filename']);
+            $qry -> bindValue(':bandbattle_id', $postData['bandbattle_id']);
+            $qry -> bindValue(':uploader_id', $postData['uploader_id']);
+            $qry -> bindValue(':width', $postData['width']);
+            $qry -> bindValue(':height', $postData['height']);
 
-        if($qry->execute()){
-            return $this -> getBandImageById($id);
+            if($qry->execute()){
+                return $this -> getBandImageById($id);
+            }
         }
         return array();
+    }
+
+    public function validateImageData($data) {
+        $errors = array();
+
+        if(empty($this -> bandsDAO -> checkUserSession())){
+            $errors['user'] = 'please log in to continue';
+        }
+
+        $bandBattlesDAO = new BandBattlesDAO();
+        if(empty($data['bandbattle_id'])) {
+            $errors['bandbattle_id'] = 'no bandbattle selected for upload';
+        }elseif(empty($bandBattlesDAO -> getBandbattleById($data['bandbattle_id']))){
+            $errors['bandbattle_id'] = 'the chosen band does not exist in our database';
+        }
+
+        if(empty($data['uploader_id'])) {
+            $errors['uploader_id'] = 'no uploader_id';
+        }
+
+        if(empty($data['filename'])) {
+            $errors['filename'] = 'no filename provided';
+        }
+
+        if(empty($data['width'])) {
+            $errors['width'] = 'no width specified';
+        }
+
+        if(empty($data['height'])) {
+            $errors['height'] = 'no height specified';
+        }
+
+        return $errors;
     }
 
     /* --- Delete ------------------------------------------- */

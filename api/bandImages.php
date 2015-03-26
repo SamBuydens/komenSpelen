@@ -2,6 +2,7 @@
 
 $bandImagesDAO = new BandImagesDAO();
 
+// --- Getters --------------------------
 $app->get('/images/?',function() use ($bandImagesDAO){
     header("Content-Type: application/json");
     echo json_encode($bandImagesDAO->getBandImages(), JSON_NUMERIC_CHECK);
@@ -20,16 +21,29 @@ $app->get('/images/:id/?', function($id) use ($bandImagesDAO){
     exit();
 });
 
+// --- Validation --------------------------
+$app->post('/validate/imagedata/?', function() use ($app, $bandImagesDAO){
+    header("Content-Type: application/json");
+    $post = $app->request->post();
+    if(empty($post)){
+        $post = (array) json_decode($app->request()->getBody());
+    }
+    echo json_encode($bandImagesDAO->insertBandImage($post), JSON_NUMERIC_CHECK);
+    exit();
+});
+
+// --- Setters --------------------------
 $app->post('/images/?', function() use ($app, $bandImagesDAO){
     header("Content-Type: application/json");
     $post = $app->request->post();
     if(empty($post)){
         $post = (array) json_decode($app->request()->getBody());
     }
-    echo json_encode($bandImagesDAO->insertBandImage($post['bandbattle_id'], $post['uploader_id'], $post['filename'], $post['width'], $post['height']), JSON_NUMERIC_CHECK);
+    echo json_encode($bandImagesDAO->insertBandImage($post), JSON_NUMERIC_CHECK);
     exit();
 });
 
+// --- Delete --------------------------
 $app->delete('/images/:id/?', function($id) use ($bandImagesDAO){
     header("Content-Type: application/json");
     echo json_encode($bandImagesDAO->deleteBandImage($id));
