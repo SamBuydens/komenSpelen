@@ -64,7 +64,7 @@ class BandsController extends AppController {
 
 	public function register() {
 
-		if(!empty($_GET['invite'])){
+		/*if(!empty($_GET['invite'])){
 			$_SESSION['invite'] = $_GET['invite'];
 		}
 
@@ -75,8 +75,10 @@ class BandsController extends AppController {
 		}else{
 			$validInvite = $this -> adminDAO -> getInviteByCode($_SESSION['invite']);
 
-			if(!empty($validInvite)){
+			if(!empty($validInvite)){*/
+
 				if(!empty($_POST)){
+
 					$_SESSION['errors'] = $this -> bandsDAO -> validateBandData($_POST);
 
 					if(empty($_POST['password'])){
@@ -87,10 +89,46 @@ class BandsController extends AppController {
 						$this -> addError('repeat_pass', "Passwords did not match.");
 					}
 
-					$_POST['band_image'] = "band.png"; //basename($targetfile);
+					trace($_FILES);
+					$image = [];
+					if(empty($_FILES['image'])){
+						$this -> addError('image', "Please choose a picture for your band.");
+					}else{
+						$imgName = $_FILES['image']['name'];
+						$size = [];
+
+						if($_FILES['image']['error'] != 0){
+							$this -> addError("image", "Image \"{$imgName}\" has errors. Upload aborted.");
+						}
+
+						switch($_FILES['image']['type']) {
+				     		case 'image/jpeg':
+				     		case 'image/png':
+				     			$size = getimagesize($_FILES['image']['tmp_name']);
+				     			if($size[0] <= 100 || $size[1] <= 100){
+				     				$this -> addError("image{$i}", "Image \"{$imgName}\" was smaller than 200x200 pixels. Upload aborted.");
+				     			}
+				     			break;
+				     		default:
+				     			$this -> addError("image", "File \"{$imgName}\" was not a jpeg or png image. Upload aborted.");
+				     			break;
+				     	}
+
+				     	if($this -> checkError("image") == false){
+				     		$image['name'] = $imgName;
+				     		$image['type'] = $_FILES['image']['type'];
+				     		$image['width'] = $size[0];
+				     		$image['height'] = $size[1];
+				     		$image['tmp_name'] = $_FILES['image']['tmp_name'];
+				     	}
+
+					}
 
 					if($this -> checkErrors() == false){
-		 				$user = $this -> usersDAO -> register($_POST);
+						$_POST['band_image'] = $image['name'];
+						$image = addImage($image, WWW_ROOT);
+
+		 				$user = $this -> bandsDAO -> register($_POST);
 
 				        if(!empty($user)){
 				            $_SESSION["bandUser"] = $user;
@@ -98,12 +136,13 @@ class BandsController extends AppController {
 				        }
 					}
 				}
-			}else{
+
+			/*}else{
 				$this -> addError('loginReq', "Invalid invitation code");
 				$this -> redirect("index.php?p=login");
 				exit();
 			}
-		}
+		}*/
 	}
 
 }

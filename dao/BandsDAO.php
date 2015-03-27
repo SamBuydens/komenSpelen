@@ -52,7 +52,7 @@ class BandsDAO
     }
 
     public function getBandByLoginData($entry, $password){
-        $sql = "SELECT bandname, email, band_image, role_id 
+        $sql = "SELECT id, bandname, email, band_image, role_id 
                 FROM `kmn_bands` 
                 WHERE (email = :entry1
                 OR bandname = :entry2)
@@ -82,8 +82,8 @@ class BandsDAO
     }
 
     public function insertBand($bandname, $email, $password, $band_image){
-        $sql = "INSERT INTO kmn_bands(bandname, email, password, role_id, band_image)
-                VALUES(:bandname, :email, :password, :role_id, :band_image)";
+        $sql = "INSERT INTO kmn_bands(bandname, email, password, band_image)
+                VALUES(:bandname, :email, :password, :band_image)";
         $qry = $this->pdo->prepare($sql);
         $qry -> bindValue(':email', $email);
         $qry -> bindValue(':bandname', htmlentities(strip_tags($bandname)));

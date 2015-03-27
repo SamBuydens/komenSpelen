@@ -71,6 +71,13 @@ class AppController {
 		return true;
 	}
 
+	public function checkError($error){
+		if(empty($_SESSION['errors'][$error])){
+			return false;
+		}
+		return true;
+	}
+
 	public function redirect($url) {
 		header("Location: {$url}");
 		exit();

@@ -7,3 +7,4 @@
     <link rel="stylesheet" href="css/screen.css">
 </head>
 <body>
+	<script src="js/vendor/jquery.min.js"></script>
