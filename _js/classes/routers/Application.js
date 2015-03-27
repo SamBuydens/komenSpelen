@@ -13,7 +13,7 @@ var Application = Backbone.Router.extend({
 	},
 
 	default : function(){
-		this.navigate("overview", {trigger: true});
+		this.navigate("bandbattles", {trigger: true});
 	}/*,
 
 	overview: function(){

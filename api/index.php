@@ -1,13 +1,12 @@
 <?php
+// Check cookie token on api call
+/*if ($_SERVER['HTTP_X_CSRF_TOKEN'] != $_COOKIE['X-CSRF-Token']) {
+	header('Status: 403 Forbidden');
+	exit();
+}*/
 
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
-
-// Check cookie token on api call
-if ($_SERVER['HTTP_X_CSRF_TOKEN'] != $_COOKIE['X-CSRF-Token']) {
-	header('Status: 403 Forbidden');
-	exit();
-}
 
 define("WWW_ROOT",dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 
