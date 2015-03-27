@@ -1,6 +1,9 @@
 <div class="container">
 
 </div>
+<?php
+   setcookie("X-CSRF-Token", sha1(rand()));
+?>
 <script type="text/javascript">
 	window.user_id = <?php echo $_SESSION['bandUser']['id']; ?>;
 </script>
