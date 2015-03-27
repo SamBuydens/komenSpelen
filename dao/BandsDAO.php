@@ -15,7 +15,7 @@ class BandsDAO
     /* --- Getters ------------------------------------------- */
 
     public function getBandById($id){
-        $sql = "SELECT bandname, email, band_image
+        $sql = "SELECT bandname, email, band_image, role_id
                 FROM `kmn_bands`
                 WHERE `id` = :id";
         $qry = $this->pdo->prepare($sql);
@@ -31,8 +31,9 @@ class BandsDAO
     }
 
     public function getBands(){
-        $sql = "SELECT *
-                FROM `kmn_bands`";
+        $sql = "SELECT bandname, email, band_image
+                FROM `kmn_bands` 
+                WHERE role_id = 1";
         $qry = $this->pdo->prepare($sql);
 
         if($qry->execute()){
@@ -51,7 +52,7 @@ class BandsDAO
     }
 
     public function getBandByLoginData($entry, $password){
-        $sql = "SELECT bandname, email, band_image 
+        $sql = "SELECT bandname, email, band_image, role_id 
                 FROM `kmn_bands` 
                 WHERE (email = :entry1
                 OR bandname = :entry2)
@@ -108,7 +109,7 @@ class BandsDAO
             $qry -> bindValue(':band_image', $putData['band_image']);
 
             if($qry->execute()){
-                return $this -> getBandById($this->pdo->lastInsertId());
+                return $this -> getBandById($id);
             }
         }
         return array();
@@ -131,9 +132,9 @@ class BandsDAO
             $errors['email'] = 'invalid contact email';
         }
 
-        if(empty($data['band_image'])) {
+        /*if(empty($data['band_image'])) {
             $errors['band_image'] = 'no band profile image specified';
-        }
+        }*/
 
         return $errors;
     }
