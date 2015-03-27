@@ -25,6 +25,7 @@
     </article>
     </div>
 </div>
+<script src="js/vendor/jquery.min.js"></script>
 <script>
     var errors = [];
     var imagePreview = $('.imagePreview');

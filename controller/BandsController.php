@@ -14,9 +14,10 @@ class BandsController extends AppController {
 
 	public function app() {
 
-		if(empty($_SESSION['bandUser'])){
-			//$this -> addError('loginReq', "Please log in to access app");
+		if(empty($_SESSION['bandUser']) || empty($this -> bandsDAO -> getBandById($_SESSION['bandUser']['id']))){
 			$this -> redirect("index.php?p=login");
+		}else{
+			setcookie("X-CSRF-Token", sha1(rand()));
 		}
 
 	}
