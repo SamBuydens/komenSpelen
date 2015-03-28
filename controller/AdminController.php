@@ -8,8 +8,8 @@ class AdminController extends AppController {
 		require_once WWW_ROOT . 'dao' . DS . 'BandsDAO.php';
 		$this -> bandsDAO = new BandsDAO();
 
-		require_once WWW_ROOT . 'dao' . DS . 'AdminDAO.php';
-		$this -> adminDAO = new AdminDAO();
+		require_once WWW_ROOT . 'dao' . DS . 'InvitesDAO.php';
+		$this -> invitesDAO = new InvitesDAO();
 	}
 
 	public function adminPanel () {
@@ -21,8 +21,6 @@ class AdminController extends AppController {
 
 		/* ---- Action: Send Invite -------------------------------------------------- */
 
-		$success = false;
-
 		if(!empty($_GET['action']) && $_GET['action'] == "sendInvite"){
 
 			if(empty($_POST['email'])){
@@ -33,7 +31,7 @@ class AdminController extends AppController {
 
 			if($this -> checkErrors() == false){
 				$uniqid = uniqid();
-				$this -> adminDAO -> insertInvite($uniqid);
+				$this -> invitesDAO -> insertInvite($uniqid);
 
 				$to = $_POST['email'];
 				$from = "admin@bandbattle.komenspelen.be";
@@ -50,21 +48,17 @@ class AdminController extends AppController {
 
 				$message = "<html>\r\n";
 				$message .= "<body>\r\n";
-				$message .= "	<h2>Welkom! Jij en je band zijn uitgenodigd voor de 'Komen Spelen' Bandbattles</h2>";
+				$message .= "	<h2>Welkom! Jij en je band zijn uitgenodigd voor de 'Komen Spelen' Bandbattle:</h2>";
 				$message .= "	<p>-------------------------------</p>";
 				$message .= "	<h1>Klik op onderstaande link om de registratie van jouw band te voltooien:</h1>";
-				$message .= "	<p><a href=\"http://student.howest.be/thorr.stevens/20142015/MAIV/KOMEN/?p=register&amp;invite={$uniqid}\" target=\"_blank\">http://student.howest.be/thorr.stevens/20142015/MAIV/KOMEN/?p=register&amp;invite={$uniqid}</a></p>\r\n";
+				$message .= "	<p><a href=\"http://student.howest.be/thorr.stevens/20142015/MAIV/KOMEN/?p=login&amp;invite={$uniqid}\" target=\"_blank\">http://student.howest.be/thorr.stevens/20142015/MAIV/KOMEN/?p=login&amp;invite={$uniqid}</a></p>\r\n";
 				$message .= "</body>\r\n";
 				$message .= "</html>\r\n";
 
 				mail($to, $subject, $message, $headers);
-
-				$success = true;
 			}
 
 		}
-
-		$this -> set('success', true);
 
 		/* ---- Action: Change Date -------------------------------------------------- */
 

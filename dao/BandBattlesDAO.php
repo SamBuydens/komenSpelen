@@ -48,8 +48,43 @@ class BandBattlesDAO
         }
     }
 
+    public function getBandbattleEventById($id){
+        $sql = "SELECT *
+                FROM `kmn_bandbattle_events`
+                WHERE `id` = :id";
+        $qry = $this->pdo->prepare($sql);
+        $qry -> bindValue(':id', $id);
+
+        if($qry->execute()){
+            $bandbattleEvent = $qry->fetch(PDO::FETCH_ASSOC);
+            if(!empty($bandbattleEvent)){
+                //$bandbattleEvent = $this -> getBandbattleDetails($bandbattleEvent);
+                return $bandbattleEvent;
+            }
+        }
+        return array();
+    }
+
+    public function getBandbattleEventsByBandbattleId($bandbattle_id){
+        $sql = "SELECT *
+                FROM `kmn_bandbattle_events`
+                WHERE `bandbattle_id` = :bandbattle_id";
+        $qry = $this->pdo->prepare($sql);
+        $qry -> bindValue(':bandbattle_id', $bandbattle_id);
+
+        if($qry->execute()){
+            $bandbattle_events = $qry->fetchAll(PDO::FETCH_ASSOC);
+            if(!empty($bandbattle_events)){
+                //$bandbattle_events = $this -> getBandbattleEventDetails($bandbattle_events);
+                return $bandbattle_events;
+            }
+        }
+        return array();
+    }
+
     public function getBandbattleDetails($bandbattle){
-        $bandbattle['band'] = $this -> bandsDAO -> getBandById($bandbattle['band_id']);
+        $bandbattle['gigs'] = $this -> getBandbattleEventsByBandbattleId($bandbattle['id']);
+        $bandbattle['organiser'] = $this -> bandsDAO -> getBandById($bandbattle['organiser_id']);
         $bandbattle['images'] = $this -> bandimagesDAO -> getBandImagesByBandbattleId($bandbattle['id']);
 
         return $bandbattle;
@@ -69,17 +104,34 @@ class BandBattlesDAO
 
     /* --- Setters & Validation ------------------------------------------- */
 
-    public function insertBandbattle($postData){
-        $errors = $this -> validateBandbattleData($postData);
+    public function insertBandbattleEvent($id, $postData){
+        //$errors = $this -> validateBandbattleEventData($postData);
         if(empty($errors)){
-            $sql = "INSERT INTO kmn_bandbattles(band_id, thedate, location, latitude, longitude)
-                    VALUES(:band_id, :thedate, :location, :latitude, :longitude)";
+            $sql = "INSERT INTO kmn_bandbattle_events(bandbattle_id, host_id, gig_date, location, latitude, longitude)
+                    VALUES(:bandbattle_id, :host_id, :gig_date, :location, :latitude, :longitude)";
             $qry = $this->pdo->prepare($sql);
-            $qry -> bindValue(':thedate', $postData['gig_date']);
-            $qry -> bindValue(':band_id', $postData['band_id']);
+            $qry -> bindValue(':bandbattle_id', $id);
+            $qry -> bindValue(':host_id', $postData['host_id']);
+            $qry -> bindValue(':gig_date', $postData['gig_date']);
             $qry -> bindValue(':location', htmlentities(strip_tags($postData['location'])));
             $qry -> bindValue(':latitude', $postData['latitude']);
             $qry -> bindValue(':longitude', $postData['longitude']);
+
+            if($qry->execute()){
+                return $this -> getBandbattleEventById($this->pdo->lastInsertId());
+            }
+        }
+        return array();
+    }
+
+    public function insertBandbattle($postData){
+        //$errors = $this -> validateBandbattleEventData($postData);
+        if(empty($errors)){
+            $sql = "INSERT INTO kmn_bandbattles(organiser_id, name)
+                    VALUES(:organiser_id, :name)";
+            $qry = $this->pdo->prepare($sql);
+            $qry -> bindValue(':organiser_id', $postData['organiser_id']);
+            $qry -> bindValue(':name', htmlentities(strip_tags($postData['name'])));
 
             if($qry->execute()){
                 return $this -> getBandbattleById($this->pdo->lastInsertId());
@@ -88,16 +140,15 @@ class BandBattlesDAO
         return array();
     }
 
-    public function updateBandbattle($id, $putData){
+    public function updateBandbattleEvent($id, $putData){
         $errors = $this -> validateBandbattleData($putData);
         if(empty($errors)){
-            $sql = "UPDATE `komen`.`kmn_bandbattles` 
-                    SET `band_id` = :band_id, `thedate` = :thedate, `location` = :location, `latitude` = :latitude, `longitude` = :longitude
-                    WHERE `kmn_bands`.`id` = :id";
+            $sql = "UPDATE `komen`.`kmn_bandbattle_events` 
+                    SET `gig_date` = :gig_date, `location` = :location, `latitude` = :latitude, `longitude` = :longitude
+                    WHERE `kmn_bandbattle_events`.`id` = :id";
             $qry = $this->pdo->prepare($sql);
             $qry -> bindValue(':id', $id);
-            $qry -> bindValue(':thedate', $putData['gig_date']);
-            $qry -> bindValue(':band_id', $putData['band_id']);
+            $qry -> bindValue(':gig_date', $putData['gig_date']);
             $qry -> bindValue(':location', htmlentities(strip_tags($putData['location'])));
             $qry -> bindValue(':latitude', $putData['latitude']);
             $qry -> bindValue(':longitude', $putData['longitude']);
@@ -109,7 +160,23 @@ class BandBattlesDAO
         return array();
     }
 
-    public function validateBandbattleData($data) {
+    public function updateBandbattle($id, $name){
+        if(empty($errors)){
+            $sql = "UPDATE `komen`.`kmn_bandbattles` 
+                    SET `name` = :name
+                    WHERE `kmn_bandbattles`.`id` = :id";
+            $qry = $this->pdo->prepare($sql);
+            $qry -> bindValue(':id', $id);
+            $qry -> bindValue(':name', htmlentities(strip_tags($putData['name'])));
+
+            if($qry->execute()){
+                return $this -> getBandbattleById($id);
+            }
+        }
+        return array();
+    }
+
+    /*public function validateBandbattleData($data) {
         $errors = array();
 
         if(empty($this -> bandsDAO -> checkUserSession())){
@@ -142,7 +209,7 @@ class BandBattlesDAO
         }
 
         return $errors;
-    }
+    }*/
 
     /* --- Delete ------------------------------------------- */
 

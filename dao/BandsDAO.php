@@ -15,7 +15,7 @@ class BandsDAO
     /* --- Getters ------------------------------------------- */
 
     public function getBandById($id){
-        $sql = "SELECT bandname, email, band_image, role_id
+        $sql = "SELECT id, bandname, email, band_image, role_id
                 FROM `kmn_bands`
                 WHERE `id` = :id";
         $qry = $this->pdo->prepare($sql);
@@ -24,6 +24,7 @@ class BandsDAO
         if($qry->execute()){
             $band = $qry->fetch(PDO::FETCH_ASSOC);
             if(!empty($band)){
+                $band = $this -> getBandDetails($band);
                 return $band;
             }
         }
@@ -31,7 +32,7 @@ class BandsDAO
     }
 
     public function getBands(){
-        $sql = "SELECT bandname, email, band_image
+        $sql = "SELECT id, bandname, email, band_image
                 FROM `kmn_bands` 
                 WHERE role_id = 1";
         $qry = $this->pdo->prepare($sql);
@@ -39,10 +40,61 @@ class BandsDAO
         if($qry->execute()){
             $bands = $qry->fetchAll(PDO::FETCH_ASSOC);
             if(!empty($bands)){
+                $bands = $this -> getBandsDetails($bands);
                 return $bands;
             }
         }
         return array();
+    }
+
+    public function getBandmemberById($bandmember_id){
+        $sql = "SELECT *
+                FROM `kmn_bandmembers` 
+                WHERE id = :bandmember_id";
+        $qry = $this->pdo->prepare($sql);
+        $qry -> bindValue(':bandmember_id', $bandmember_id);
+
+        if($qry->execute()){
+            $bandmember = $qry->fetch(PDO::FETCH_ASSOC);
+            if(!empty($bandmember)){
+                return $bandmember;
+            }
+        }
+        return array();
+    }
+
+    public function getBandmembersByBandId($band_id){
+        $sql = "SELECT *
+                FROM `kmn_bandmembers` 
+                WHERE band_id = :band_id";
+        $qry = $this->pdo->prepare($sql);
+        $qry -> bindValue(':band_id', $band_id);
+
+        if($qry->execute()){
+            $bandmembers = $qry->fetchAll(PDO::FETCH_ASSOC);
+            if(!empty($bandmembers)){
+                return $bandmembers;
+            }
+        }
+        return array();
+    }
+
+    public function getBandDetails($band){
+        $band['members'] = $this -> getBandmembersByBandId($band['id']);
+
+        return $band;
+    }
+
+    public function getBandsDetails($bands){
+        $i = 0;
+
+        foreach($bands as $band){
+            $band = $this -> getBandDetails($band);
+            $bands[$i] = $band;
+            $i++;
+        }
+
+        return $bands;
     }
 
     /* --- Login ------------------------------------------- */
@@ -96,6 +148,21 @@ class BandsDAO
         return array();
     }
 
+    public function insertBandmember($band_id, $name, $instrument, $image){
+        $sql = "INSERT INTO kmn_bandmembers(band_id, name, instrument, image)
+                VALUES(:band_id, :name, :instrument, :image)";
+        $qry = $this->pdo->prepare($sql);
+        $qry -> bindValue(':band_id', $band_id);
+        $qry -> bindValue(':name', htmlentities(strip_tags($name)));
+        $qry -> bindValue(':instrument', htmlentities(strip_tags($instrument)));
+        $qry -> bindValue(':image', $image);
+
+        if($qry->execute()){
+            return $this -> getBandmemberById($this->pdo->lastInsertId());
+        }
+        return array();
+    }
+
     public function updateBand($id, $putData){
         $errors = $this -> validateBandData($putData);
         if(empty($errors)){
@@ -118,9 +185,9 @@ class BandsDAO
     public function validateBandData($data) {
         $errors = array();
 
-        if(empty($this -> checkUserSession())){
+        /*if(empty($this -> checkUserSession())){
             $errors['user'] = 'please log in to continue';
-        }
+        }*/
 
         if(empty($data['bandname'])) {
             $errors['bandname'] = 'no bandname provided';
@@ -141,7 +208,7 @@ class BandsDAO
 
     /* --- Delete ------------------------------------------- */
 
-    public function deleteBand($id){
+    public function deleteBandmember($id){
         $sql = "DELETE FROM `komen`.`kmn_bands` 
                 WHERE `kmn_bands`.`id` = :id";
         $qry = $this->pdo->prepare($sql);

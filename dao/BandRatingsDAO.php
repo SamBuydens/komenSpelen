@@ -107,8 +107,8 @@ class BandRatingsDAO
     }
 
     public function getRatingDetails($rating){
-        $rating['band_scored'] = $this -> bandsDAO -> getBandById($rating['rated_id']);
-        $rating['band_rater'] = $this -> bandsDAO -> getBandById($rating['rater_id']);
+        $rating['band_playing'] = $this -> bandsDAO -> getBandById($rating['rated_id']);
+        $rating['band_rated'] = $this -> bandsDAO -> getBandById($rating['rater_id']);
 
         return $rating;
     }

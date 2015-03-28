@@ -15,6 +15,7 @@ require_once WWW_ROOT. "dao" .DIRECTORY_SEPARATOR. 'BandsDAO.php';
 require_once WWW_ROOT. "dao" .DIRECTORY_SEPARATOR. 'BandBattlesDAO.php';
 require_once WWW_ROOT. "dao" .DIRECTORY_SEPARATOR. 'BandImagesDAO.php';
 require_once WWW_ROOT. "dao" .DIRECTORY_SEPARATOR. 'BandRatingsDAO.php';
+require_once WWW_ROOT. "dao" .DIRECTORY_SEPARATOR. 'InvitesDAO.php';
 require_once WWW_ROOT. "api" .DIRECTORY_SEPARATOR. 'Slim'. DIRECTORY_SEPARATOR .'Slim.php';
 
 \Slim\Slim::registerAutoloader();

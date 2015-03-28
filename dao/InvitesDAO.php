@@ -3,7 +3,7 @@
 require_once WWW_ROOT . 'classes' . DIRECTORY_SEPARATOR . 'DatabasePDO.php';
 //require_once WWW_ROOT . 'dao' . DIRECTORY_SEPARATOR . 'BandsDAO.php';
 
-class AdminDAO
+class InvitesDAO
 {
     public $pdo;
 
@@ -44,11 +44,12 @@ class AdminDAO
         return array();
     }
 
-    public function insertInvite($invite_code){
-        $sql = "INSERT INTO kmn_invite_keys(invite_code)
-                VALUES(:invite_code)";
+    public function insertInvite($bandbattle_id, $invite_code){
+        $sql = "INSERT INTO kmn_invite_keys(bandbattle_id, invite_code)
+                VALUES(:bandbattle_id, :invite_code)";
         $qry = $this->pdo->prepare($sql);
         $qry -> bindValue(':invite_code', $invite_code);
+        $qry -> bindValue(':bandbattle_id', $bandbattle_id);
 
         if($qry->execute()){
             return $this -> getInviteById($this->pdo->lastInsertId());

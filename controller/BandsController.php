@@ -8,8 +8,8 @@ class BandsController extends AppController {
 		require_once WWW_ROOT . 'dao' . DS . 'BandsDAO.php';
 		$this -> bandsDAO = new BandsDAO();
 
-		require_once WWW_ROOT . 'dao' . DS . 'AdminDAO.php';
-		$this -> adminDAO = new AdminDAO();
+		/*require_once WWW_ROOT . 'dao' . DS . 'InvitesDAO.php';
+		$this -> invitesDAO = new InvitesDAO();*/
 	}
 
 	public function app() {
@@ -65,6 +65,10 @@ class BandsController extends AppController {
 
 	public function register() {
 
+		if(!empty($_SESSION['bandUser'])){
+			unset($_SESSION['bandUser']);
+		}
+		
 		/*if(!empty($_GET['invite'])){
 			$_SESSION['invite'] = $_GET['invite'];
 		}
@@ -74,7 +78,7 @@ class BandsController extends AppController {
 			$this -> redirect("index.php?p=login");
 			exit();
 		}else{
-			$validInvite = $this -> adminDAO -> getInviteByCode($_SESSION['invite']);
+			$validInvite = $this -> invitesDAO -> getInviteByCode($_SESSION['invite']);
 
 			if(!empty($validInvite)){*/
 
@@ -90,7 +94,6 @@ class BandsController extends AppController {
 						$this -> addError('repeat_pass', "Passwords did not match.");
 					}
 
-					trace($_FILES);
 					$image = [];
 					if(empty($_FILES['image'])){
 						$this -> addError('image', "Please choose a picture for your band.");

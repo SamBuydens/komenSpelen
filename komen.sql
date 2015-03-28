@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:1125
--- Generation Time: Mar 26, 2015 at 02:55 AM
+-- Generation Time: Mar 28, 2015 at 04:18 AM
 -- Server version: 5.5.38
 -- PHP Version: 5.6.2
 
@@ -28,19 +28,61 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `kmn_bandbattles` (
 `id` smallint(11) NOT NULL,
-  `band_id` smallint(11) NOT NULL,
-  `thedate` date NOT NULL,
-  `location` varchar(255) NOT NULL,
-  `latitude` float(10,6) NOT NULL,
-  `longitude` float(10,6) NOT NULL
+  `organiser_id` smallint(11) NOT NULL,
+  `name` varchar(64) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kmn_bandbattles`
 --
 
-INSERT INTO `kmn_bandbattles` (`id`, `band_id`, `thedate`, `location`, `latitude`, `longitude`) VALUES
-(2, 1, '2015-03-26', 'Goatsville Belgium', 51.182846, 3.581908);
+INSERT INTO `kmn_bandbattles` (`id`, `organiser_id`, `name`) VALUES
+(2, 5, 'Goatfest');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kmn_bandbattle_events`
+--
+
+CREATE TABLE `kmn_bandbattle_events` (
+`id` smallint(11) NOT NULL,
+  `bandbattle_id` smallint(11) NOT NULL,
+  `host_id` smallint(11) NOT NULL,
+  `gig_date` date NOT NULL,
+  `location` varchar(120) NOT NULL,
+  `latitude` float(10,6) NOT NULL,
+  `longitude` float(10,6) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kmn_bandbattle_events`
+--
+
+INSERT INTO `kmn_bandbattle_events` (`id`, `bandbattle_id`, `host_id`, `gig_date`, `location`, `latitude`, `longitude`) VALUES
+(1, 2, 5, '2015-03-30', 'Heldenpark 9900 Eeklo', 51.182846, 3.581908);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kmn_bandmembers`
+--
+
+CREATE TABLE `kmn_bandmembers` (
+`id` smallint(11) NOT NULL,
+  `band_id` smallint(11) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  `instrument` varchar(64) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kmn_bandmembers`
+--
+
+INSERT INTO `kmn_bandmembers` (`id`, `band_id`, `name`, `instrument`, `image`) VALUES
+(1, 4, 'The Admin', 'Keyboard & Banhammer', 'Admin.png'),
+(2, 5, 'The Goatmeister', 'A live goat.', 'Goat.jpg');
 
 -- --------------------------------------------------------
 
@@ -53,15 +95,17 @@ CREATE TABLE `kmn_bands` (
   `bandname` varchar(64) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(64) NOT NULL,
-  `band_image` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+  `band_image` varchar(255) NOT NULL,
+  `role_id` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kmn_bands`
 --
 
-INSERT INTO `kmn_bands` (`id`, `bandname`, `email`, `password`, `band_image`) VALUES
-(1, 'GoatDestroyer', 'info@destroythegoat.com', 'goat12', 'goat.jpg');
+INSERT INTO `kmn_bands` (`id`, `bandname`, `email`, `password`, `band_image`, `role_id`) VALUES
+(4, 'Admin', 'admin@bandbattles.komenspelen.be', 'f2ee70d4644764d9d2630582f83dfce67a7f02ac', 'Admin.png', 2),
+(5, 'GoatDestroyer', 'destroyer@worshipthegoat.be', 'f8c128b8fc829005b9d1d86cfbc43b0b4af1dd94', 'Goat.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -81,6 +125,26 @@ CREATE TABLE `kmn_band_images` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kmn_invite_keys`
+--
+
+CREATE TABLE `kmn_invite_keys` (
+`id` smallint(11) NOT NULL,
+  `bandbattle_id` smallint(11) NOT NULL,
+  `invite_code` varchar(64) NOT NULL,
+  `activated` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kmn_invite_keys`
+--
+
+INSERT INTO `kmn_invite_keys` (`id`, `bandbattle_id`, `invite_code`, `activated`) VALUES
+(1, 2, '5515458c90203', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kmn_ratings`
 --
 
@@ -90,14 +154,15 @@ CREATE TABLE `kmn_ratings` (
   `rated_id` smallint(11) NOT NULL,
   `rater_id` smallint(11) NOT NULL,
   `score` float(2,1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kmn_ratings`
 --
 
 INSERT INTO `kmn_ratings` (`id`, `quota_id`, `rated_id`, `rater_id`, `score`) VALUES
-(1, 1, 1, 1, 9.0);
+(2, 1, 5, 4, 8.5),
+(3, 2, 5, 4, 8.0);
 
 -- --------------------------------------------------------
 
@@ -129,6 +194,18 @@ ALTER TABLE `kmn_bandbattles`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `kmn_bandbattle_events`
+--
+ALTER TABLE `kmn_bandbattle_events`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `kmn_bandmembers`
+--
+ALTER TABLE `kmn_bandmembers`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `kmn_bands`
 --
 ALTER TABLE `kmn_bands`
@@ -138,6 +215,12 @@ ALTER TABLE `kmn_bands`
 -- Indexes for table `kmn_band_images`
 --
 ALTER TABLE `kmn_band_images`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `kmn_invite_keys`
+--
+ALTER TABLE `kmn_invite_keys`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -162,20 +245,35 @@ ALTER TABLE `kmn_rating_quota`
 ALTER TABLE `kmn_bandbattles`
 MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
+-- AUTO_INCREMENT for table `kmn_bandbattle_events`
+--
+ALTER TABLE `kmn_bandbattle_events`
+MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `kmn_bandmembers`
+--
+ALTER TABLE `kmn_bandmembers`
+MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `kmn_bands`
 --
 ALTER TABLE `kmn_bands`
-MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `kmn_band_images`
 --
 ALTER TABLE `kmn_band_images`
 MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `kmn_invite_keys`
+--
+ALTER TABLE `kmn_invite_keys`
+MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `kmn_ratings`
 --
 ALTER TABLE `kmn_ratings`
-MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `kmn_rating_quota`
 --
