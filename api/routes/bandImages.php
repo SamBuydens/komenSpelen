@@ -9,7 +9,7 @@ $app->get('/images/?',function() use ($bandImagesDAO){
     exit();
 });
 
-$app->get('/images/bandbattle/:id/?',function($id) use ($bandImagesDAO){
+$app->get('/bandbattle/:id/images/?',function($id) use ($bandImagesDAO){
     header("Content-Type: application/json");
     echo json_encode($bandImagesDAO->getBandImagesByBandbattleId($id), JSON_NUMERIC_CHECK);
     exit();
