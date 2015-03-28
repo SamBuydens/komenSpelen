@@ -1,10 +1,15 @@
-//var OverviewView = require('../views/OverviewView.js');
-//var StudentDetailView = require('../views/StudentDetailView.js');
+var BandbattlesOverviewView = require('../views/BandbattlesOverviewView.js');
 
 var Application = Backbone.Router.extend({
 
 	routes: {
-		"bandbattles": "bandbattles",
+		"bandbattles": "bandbattlesScreen",
+		"bandbattles/:id": "bandbattleDetailScreen",
+		"bandbattleCreate": "createBandbattleScreen", 
+		"bandbattleEvents/:id": "bandbattleEventScreen", 
+		"bandbattleEvents/:id/ratings": "bandRatingScreen",
+		"bands/:id": "bandDetailScreen",
+		"bands/:id/members": "bandMembersScreen",
 		"*actions": "default"
 	},
 
@@ -12,15 +17,37 @@ var Application = Backbone.Router.extend({
 		$('.container').empty();
 	},
 
+	bandbattlesScreen: function(){
+
+	},
+
+	bandbattlesDetailsScreen: function(){
+
+	},
+
+	createBandbattleScreen: function(){
+
+	},
+
+	bandbattleEventScreen: function(){
+
+	},
+
+	bandRatingScreen: function(){
+
+	},
+
+	bandDetailScreen: function(){
+
+	},
+
+	bandMembersScreen: function(){
+
+	},
+
 	default : function(){
 		this.navigate("bandbattles", {trigger: true});
-	}/*,
-
-	overview: function(){
-		this.empty();
-		this.overview = new OverviewView();
-		$('.container').append(this.overview.render().el);
-	},*/
+	}
 
 });
 

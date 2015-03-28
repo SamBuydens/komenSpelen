@@ -1,6 +1,6 @@
 var Handlebars = require("hbsfy/runtime");
 var Application = require("./classes/routers/Application.js");
-//var FeedbackCollection = require("./classes/collections/FeedbackCollection.js");
+var BandbattleCollection = require("./classes/collections/BandbattleCollection.js");
 
 function init() {
 	Window.Application = new Application();
