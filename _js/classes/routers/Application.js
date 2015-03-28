@@ -4,7 +4,7 @@
 var Application = Backbone.Router.extend({
 
 	routes: {
-		"overview": "overview",
+		"bandbattles": "bandbattles",
 		"*actions": "default"
 	},
 

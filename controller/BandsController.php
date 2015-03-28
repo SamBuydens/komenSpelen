@@ -14,6 +14,14 @@ class BandsController extends AppController {
 
 	public function app() {
 
+		if(!empty($_GET['invite'])){
+			$_SESSION['inviteCode'] = $_GET['invite'];
+		}
+
+		/*if(!empty($_GET['bbid'])){
+			$_SESSION['banbbattleId'] = $_GET['bbid'];
+		}*/
+
 		if(empty($_SESSION['bandUser']) || empty($this -> bandsDAO -> getBandById($_SESSION['bandUser']['id']))){
 			$this -> redirect("index.php?p=login");
 		}else{
