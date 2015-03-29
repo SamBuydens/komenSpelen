@@ -33,7 +33,7 @@ var BandbattleDetailView = Backbone.View.extend({
 		$.post(window.www_root+"api/bandbattles/"+this.model.attributes.id+"/invites/sendcode/", { email: mail }).done(function(bandbattledata){
 			Window.Application.navigate("bandbattles/"+bandbattledata.id);
 		}.bind(this));
-		console.log("[BandBattleDetailView] Sent invite to: "+mail);
+		console.log("[BandBattleDetailView] Sent invite to: " + mail);
 	},
 
 	checkOrganizer: function(){
