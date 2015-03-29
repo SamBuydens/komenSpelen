@@ -10,11 +10,25 @@ var BandbattleCreateView = Backbone.View.extend({
 		'click .create-battle-btn': 'createBandbattle'
 	},
 
-	createBandbattle: function(e){ console.log('createBandbattle');
+	createBandbattle: function(e){ console.log('[bandbattleCreateView] Creating Bandbattle');
 		e.preventDefault();
+		window.invite_code = undefined;
+
 		$.post(window.www_root+"api/bandbattles/", { organiser_id: window.user_id }).done(function(bandbattledata){
-			Window.Application.navigate("bandbattles/"+bandbattledata.id);
+
+			var d = new Date();
+
+			this.gigdate = $(".gigdate").val();
+			this.loc = $(".location").val();
+			this.lat = $(".latitude").val(); 
+			this.lon = $(".longitude").val(); 
+
+			$.post(window.www_root+"api/bandbattles/"+bandbattledata.id+"/events/", { host_id: window.user_id, gig_date: this.gigdate, location: this.loc, latitude: this.lat, longitude: this.lon }).done(function(eventdata){
+				Window.Application.navigate("bandbattles/"+bandbattledata.id, { trigger:true });
+			}.bind(this));
+
 		}.bind(this));
+
 	},
 
 	empty: function(){

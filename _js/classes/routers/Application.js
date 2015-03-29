@@ -18,33 +18,42 @@ var Application = Backbone.Router.extend({
 		$('.container').empty();
 	},
 
-	bandBattleDetailScreen: function(id){ console.log("[Application] bandBattleDetailScreen (id:"+id+")"); this.checkUserLogin();
+	bandBattleDetailScreen: function(id){ console.log("[Application] -- bandBattleDetailScreen (id:"+id+") --------"); this.checkUserLogin();
 		this.empty();
 		this.bandBattleDetailView = new BandBattleDetailView(id);
 		$('.container').append(this.bandBattleDetailView.render().el);
 	},
 
-	createBandbattleScreen: function(){ console.log("[Application] Create Bandbattle Screen"); this.checkUserLogin();
+	createBandbattleScreen: function(){ console.log("[Application] -- createBandbattleScreen ------"); this.checkUserLogin();
+		window.invite_code = undefined;
 		this.empty();
 		this.createView = new BandbattleCreateView();
 		$('.container').append(this.createView.render().el);
 	},
 
-	bandbattleLiveScreen: function(id){ console.log("[Application] bandbattleLiveScreen (id:"+id+")"); this.checkUserLogin();
+	bandbattleLiveScreen: function(id){ console.log("[Application] -- bandbattleLiveScreen (id:"+id+") ------"); this.checkUserLogin();
 
 	},
 
-	bandRatingScreen: function(id){ console.log("[Application] bandRatingScreen (id:"+id+")"); this.checkUserLogin();
+	bandRatingScreen: function(id){ console.log("[Application] -- bandRatingScreen (id:"+id+") -------"); this.checkUserLogin();
 
 	},
 
-	bandDetailScreen: function(id){ console.log("[Application] bandDetailScreen (id:"+id+")"); this.checkUserLogin();
+	bandDetailScreen: function(id){ console.log("[Application] -- bandDetailScreen (id:"+id+") -------"); this.checkUserLogin();
 
 	},
 
-	default : function(){ console.log("[Application] default"); this.checkUserLogin(); 
+	default : function(){ console.log("[Application] -- Launching Default -------"); this.checkUserLogin(); 
 		
-		this.checkInvitationCode();
+		$.get(window.www_root+"api/bandbattles/for/band/"+window.user_id+"/").done(function(gigdata){
+			if(typeof gigdata.bandbattle_id !== "undefined"){
+				console.log("[Application] Navigating to joined bandbattle");
+				this.navigate("bandbattles/"+gigdata.bandbattle_id, {trigger: true});
+			}else{
+				console.log("[Application] No bandbattle joined yet");
+				this.checkInvitationCode();
+			}
+		}.bind(this));
 
 	},
 
@@ -61,16 +70,19 @@ var Application = Backbone.Router.extend({
 	}, 
 
 	checkInvitationCode: function(){
-		if(window.invite_code !== undefined){ console.log(window.invite_code);
+		if(window.invite_code !== undefined){ console.log("[Application] Checking invitation code");
 			$.get(window.www_root+"api/bandbattles/invites/checkcode/"+window.invite_code+"/").done(function(invitedata){
-				if(invitedata.bandbattle_id !== undefined){ console.log(invitedata.bandbattle_id);
+				if(invitedata.bandbattle_id !== undefined){
+					console.log("[Application] Invite Code Valid: " + window.invite_code + " (Bandbattle ID: " + invitedata.bandbattle_id + ")");
 					this.navigate("bandbattles/"+invitedata.bandbattle_id, {trigger: true});
 				}else{
+					console.log("[Application] Invite Code NOT Valid: " + window.invite_code);
 					window.invite_code = undefined;
 					this.navigate("bandbattleCreate", {trigger: true});
 				}
 			}.bind(this));
 		}else{
+			console.log("[Application] No invite code > Creating new bandbattle");
 			this.navigate("bandbattleCreate", {trigger: true});
 		}
 	}

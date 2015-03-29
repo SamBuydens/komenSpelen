@@ -27,6 +27,12 @@ $app->get('/bandbattlegigs/:id/?', function($id) use ($bandBattlesDAO){
     exit();
 });
 
+$app->get('/bandbattles/for/band/:band_id/?', function($band_id) use ($bandBattlesDAO){
+    header("Content-Type: application/json");
+    echo json_encode($bandBattlesDAO->getBandbattleEventByBandId($band_id), JSON_NUMERIC_CHECK);
+    exit();
+});
+
 // --- Invites --------------------------
 
 $invitesDAO = new InvitesDAO();
@@ -66,7 +72,7 @@ $app->post('/bandbattles/:id/invites/sendcode/?', function($id) use ($app, $invi
     $message .= "   <h2>Je band werd uitgenodigd voor een Bandbattle!</h2>";
     $message .= "   <p>-------------------------------</p>";
     $message .= "   <h1>Klik op onderstaande link als je je bands participatie wil bevestigen:</h1>";
-    $message .= "   <p><a href=\"http://student.howest.be/thorr.stevens/20142015/MAIV/KOMEN/?p=app&amp;bbid={$id}&amp;invite={$uniqid}\" target=\"_blank\">http://student.howest.be/thorr.stevens/20142015/MAIV/KOMEN/?p=app&amp;bbid={$id}&amp;invite={$uniqid}</a></p>\r\n";
+    $message .= "   <p><a href=\"http://student.howest.be/thorr.stevens/20142015/MA4/KOMEN/?p=app&amp;invite={$uniqid}\" target=\"_blank\">http://student.howest.be/thorr.stevens/20142015/MA4/KOMEN/?p=app&amp;invite={$uniqid}</a></p>\r\n";
     $message .= "</body>\r\n";
     $message .= "</html>\r\n";
 
@@ -81,16 +87,17 @@ $app->delete('/bandbattles/invites/:id/?', function($id) use ($invitesDAO){
     exit();
 });
 
-// --- Validation --------------------------
-/*$app->post('/validate/bandbattledata/?', function() use ($app, $bandBattlesDAO){
+// --- Validation -----------------------
+
+$app->post('/validate/eventdata/:id/?', function($id) use ($app, $bandBattlesDAO){
     header("Content-Type: application/json");
     $post = $app->request->post();
     if(empty($post)){
         $post = (array) json_decode($app->request()->getBody());
     }
-    echo json_encode($bandBattlesDAO->validateBandbattleData($post), JSON_NUMERIC_CHECK);
+    echo json_encode($bandBattlesDAO->validateBandbattleEventData($id, $post), JSON_NUMERIC_CHECK);
     exit();
-});*/
+});
 
 // --- Setters --------------------------
 $app->post('/bandbattles/?', function() use ($app, $bandBattlesDAO){

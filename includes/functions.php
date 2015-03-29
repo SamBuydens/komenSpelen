@@ -8,7 +8,7 @@
 
 	function get_base_root(){
 		$local_root = "http://localhost:1124/thorr.stevens/20142015/KomenSpelen/";
-		$live_root = "http://student.howest.be/thorr.stevens/20142015/MAIV/KOMEN/";
+		$live_root = "http://student.howest.be/thorr.stevens/20142015/MA4/KOMEN/";
 
 		if(in_array($_SERVER["SERVER_ADDR"], array("127.0.0.1", "::1", "192.168.75.121", "fe80::21c:42ff:fe00:8"))){
 		    $root = $local_root;

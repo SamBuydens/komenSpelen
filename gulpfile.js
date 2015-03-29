@@ -48,9 +48,11 @@ gulp.task('scripts', ['lint'], function(){
 		.pipe(source('app.js'))
 		.pipe(buffer())
 		.pipe(sourcemaps.init({loadMaps: true}))
-		.pipe(uglify())
+		/*.pipe(uglify())*/
 		.pipe(header("/* \n- <%= pkg.name %> \n- <%= pkg.description %> \n- v<%= pkg.version %> \n- <%= pkg.license %> licensed \n- Copyright (C) 2015 <%= pkg.author %> \n*/\n\n", { pkg: pkg }))
-		.pipe(sourcemaps.write('./', { sourceRoot: '../' }))
+		.pipe(sourcemaps.write('./', { 
+			sourceRoot: '../' 
+		}))
 		.pipe(gulp.dest('./js'))
 	;
 });

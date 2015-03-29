@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:1125
--- Generation Time: Mar 28, 2015 at 04:18 AM
+-- Generation Time: Mar 29, 2015 at 08:41 AM
 -- Server version: 5.5.38
 -- PHP Version: 5.6.2
 
@@ -30,14 +30,14 @@ CREATE TABLE `kmn_bandbattles` (
 `id` smallint(11) NOT NULL,
   `organiser_id` smallint(11) NOT NULL,
   `name` varchar(64) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kmn_bandbattles`
 --
 
 INSERT INTO `kmn_bandbattles` (`id`, `organiser_id`, `name`) VALUES
-(2, 5, 'Goatfest');
+(4, 5, '');
 
 -- --------------------------------------------------------
 
@@ -97,7 +97,7 @@ CREATE TABLE `kmn_bands` (
   `password` varchar(64) NOT NULL,
   `band_image` varchar(255) NOT NULL,
   `role_id` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kmn_bands`
@@ -120,7 +120,14 @@ CREATE TABLE `kmn_band_images` (
   `filename` varchar(255) NOT NULL,
   `width` smallint(5) NOT NULL,
   `height` smallint(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kmn_band_images`
+--
+
+INSERT INTO `kmn_band_images` (`id`, `bandbattle_id`, `uploader_id`, `filename`, `width`, `height`) VALUES
+(1, 2, 5, 'Goat.jpg', 900, 600);
 
 -- --------------------------------------------------------
 
@@ -133,14 +140,15 @@ CREATE TABLE `kmn_invite_keys` (
   `bandbattle_id` smallint(11) NOT NULL,
   `invite_code` varchar(64) NOT NULL,
   `activated` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kmn_invite_keys`
 --
 
 INSERT INTO `kmn_invite_keys` (`id`, `bandbattle_id`, `invite_code`, `activated`) VALUES
-(1, 2, '5515458c90203', 0);
+(1, 2, '5515458c90203', 0),
+(2, 4, '5517626555633', 0);
 
 -- --------------------------------------------------------
 
@@ -173,7 +181,7 @@ INSERT INTO `kmn_ratings` (`id`, `quota_id`, `rated_id`, `rater_id`, `score`) VA
 CREATE TABLE `kmn_rating_quota` (
 `id` smallint(6) NOT NULL,
   `quota` varchar(64) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kmn_rating_quota`
@@ -181,7 +189,8 @@ CREATE TABLE `kmn_rating_quota` (
 
 INSERT INTO `kmn_rating_quota` (`id`, `quota`) VALUES
 (1, 'Instrument Beheersing'),
-(2, 'Muziek Niveau');
+(2, 'Klank'),
+(3, 'Sfeer en Interactie');
 
 --
 -- Indexes for dumped tables
@@ -243,7 +252,7 @@ ALTER TABLE `kmn_rating_quota`
 -- AUTO_INCREMENT for table `kmn_bandbattles`
 --
 ALTER TABLE `kmn_bandbattles`
-MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `kmn_bandbattle_events`
 --
@@ -258,17 +267,17 @@ MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `kmn_bands`
 --
 ALTER TABLE `kmn_bands`
-MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `kmn_band_images`
 --
 ALTER TABLE `kmn_band_images`
-MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `kmn_invite_keys`
 --
 ALTER TABLE `kmn_invite_keys`
-MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `kmn_ratings`
 --
@@ -278,7 +287,7 @@ MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `kmn_rating_quota`
 --
 ALTER TABLE `kmn_rating_quota`
-MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

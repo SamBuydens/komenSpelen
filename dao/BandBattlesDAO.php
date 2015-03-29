@@ -82,6 +82,22 @@ class BandBattlesDAO
         return array();
     }
 
+    public function getBandbattleEventByBandId($band_id){
+        $sql = "SELECT *
+                FROM `kmn_bandbattle_events`
+                WHERE `host_id` = :band_id";
+        $qry = $this->pdo->prepare($sql);
+        $qry -> bindValue(':band_id', $band_id);
+
+        if($qry->execute()){
+            $bandbattle_event = $qry->fetch(PDO::FETCH_ASSOC);
+            if(!empty($bandbattle_event)){
+                return $bandbattle_event;
+            }
+        }
+        return array();
+    }
+
     public function getBandbattleDetails($bandbattle){
         $bandbattle['gigs'] = $this -> getBandbattleEventsByBandbattleId($bandbattle['id']);
         $bandbattle['organiser'] = $this -> bandsDAO -> getBandById($bandbattle['organiser_id']);
@@ -104,6 +120,32 @@ class BandBattlesDAO
 
     /* --- Setters & Validation ------------------------------------------- */
 
+    public function validateBandbattleEventData($id, $postData){
+        $errors = array();
+
+        if(empty($data['host_id'])) {
+            $errors['host_id'] = 'no host_id provided';
+        }
+
+        /*if(empty($data['gig_date'])) {
+            $errors['gig_date'] = 'no gig_date provided';
+        }*/
+
+        if(empty($data['location'])) {
+            $errors['location'] = 'no location provided';
+        }
+
+        if(empty($data['latitude'])) {
+            $errors['latitude'] = 'no latitude provided';
+        }
+
+        if(empty($data['longitude'])) {
+            $errors['longitude'] = 'no longitude provided';
+        }
+
+        return $errors;
+    }
+
     public function insertBandbattleEvent($id, $postData){
         //$errors = $this -> validateBandbattleEventData($postData);
         if(empty($errors)){
@@ -112,7 +154,7 @@ class BandBattlesDAO
             $qry = $this->pdo->prepare($sql);
             $qry -> bindValue(':bandbattle_id', $id);
             $qry -> bindValue(':host_id', $postData['host_id']);
-            $qry -> bindValue(':gig_date', $postData['gig_date']);
+            $qry -> bindValue(':gig_date', date('yyyy/mm/dd') /*$postData['gig_date']*/);
             $qry -> bindValue(':location', htmlentities(strip_tags($postData['location'])));
             $qry -> bindValue(':latitude', $postData['latitude']);
             $qry -> bindValue(':longitude', $postData['longitude']);
@@ -174,41 +216,6 @@ class BandBattlesDAO
         }
         return array();
     }
-
-    /*public function validateBandbattleData($data) {
-        $errors = array();
-
-        if(empty($this -> bandsDAO -> checkUserSession())){
-            $errors['user'] = 'please log in to continue';
-        }
-
-        if(empty($data['band_id'])) {
-            $errors['band_id'] = 'no band chosen';
-        }elseif(empty($this -> bandsDAO -> getBandById($data['band_id']))){
-            $errors['band_id'] = 'the band you chose does not exist in our database';
-        }
-
-        $arrDateTest = explode('/', $data['gig_date']);
-        if(empty($data['gig_date'])) {
-            $errors['gig_date'] = 'no date set for this bandbattle';
-        }elseif(!checkdate($arrDateTest[0], $arrDateTest[1], $arrDateTest[2])){
-            $errors['gig_date'] = 'the specified date was not valid';
-        }
-
-        if(empty($data['location'])) {
-            $errors['location'] = 'no location set for this bandbattle';
-        }
-
-        if(empty($data['latitude'])) {
-            $errors['latitude'] = 'no latitude coördinate set for this bandbattle';
-        }
-
-        if(empty($data['longitude'])) {
-            $errors['longitude'] = 'no longitude coördinate set for this bandbattle';
-        }
-
-        return $errors;
-    }*/
 
     /* --- Delete ------------------------------------------- */
 
