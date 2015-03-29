@@ -50,7 +50,7 @@ $app->post('/bandbattles/:id/invites/sendcode/?', function($id) use ($app, $invi
 
     $to = $post['email'];
     $from = "admin@bandbattle.komenspelen.be";
-    $subject = "Uw registratie bij BandBattle";
+    $subject = "Uw invite voor BandBattle";
 
     $headers = "MIME-Version: 1.0\r\n";
     $date = date('D, d\t\h M Y h:i:s O');

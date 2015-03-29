@@ -3,7 +3,7 @@ var Image = require('../models/Image.js');
 var ImageCollection = Backbone.collection.extend({
 
 	model: Image,
-	url: 'api/bandmembers/',
+	url: 'api/images/',
 
 	// Collection logica & methods
 

@@ -3,7 +3,7 @@ var Rating = require('../models/Rating.js');
 var RatingsCollection = Backbone.collection.extend({
 
 	model: Rating,
-	url: 'api/bands/',
+	url: 'api/ratings/',
 
 	// Collection logica & methods
 

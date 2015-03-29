@@ -127,11 +127,10 @@ class BandBattlesDAO
     public function insertBandbattle($postData){
         //$errors = $this -> validateBandbattleEventData($postData);
         if(empty($errors)){
-            $sql = "INSERT INTO kmn_bandbattles(organiser_id, name)
-                    VALUES(:organiser_id, :name)";
+            $sql = "INSERT INTO kmn_bandbattles(organiser_id)
+                    VALUES(:organiser_id)";
             $qry = $this->pdo->prepare($sql);
             $qry -> bindValue(':organiser_id', $postData['organiser_id']);
-            $qry -> bindValue(':name', htmlentities(strip_tags($postData['name'])));
 
             if($qry->execute()){
                 return $this -> getBandbattleById($this->pdo->lastInsertId());

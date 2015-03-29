@@ -3,13 +3,11 @@
 </div>
 <script type="text/javascript">
 	window.user_id = <?php echo $_SESSION['bandUser']['id']; ?>;
+	window.www_root = "<?php echo get_base_root(); ?>";
 	<?php
 		if(!empty($_SESSION['inviteCode'])){
 			echo "window.invite_code = \"{$_SESSION['inviteCode']}\";";
 		}
-		/*if(!empty($_SESSION['bandbattleId'])){
-			echo "window.invite_bbid = {$_SESSION['bandbattleId']};";
-		}*/
 	?>
 </script>
 <script src="js/vendor/jquery.min.js"></script>
