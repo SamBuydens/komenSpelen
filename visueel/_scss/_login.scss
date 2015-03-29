@@ -1,0 +1,145 @@
+#login {
+	background-image: url('../images/achtergrond/instrumenten.png'), url('../images/achtergrond/handenjack.png'), url('../images/achtergrond/spot.png');
+	background-size: 170px 204px, 120px 55px, 52px 57px;
+	background-position: 203px 380px, 150px 175px, 30px 340px;
+	background-repeat: no-repeat;
+	header {
+		h1 {
+			width: 240px;
+			height: 151px;
+			background-image: url('../images/headers/komenSpelen.svg');
+			background-size: contain;
+			margin: 10px auto 0 auto;
+			span {
+				display: none;
+			}
+		}
+	}
+	form {
+		fieldset {
+			background-image: url('../images/achtergrond/aanmelden.png');
+			background-repeat: no-repeat;
+			background-size: 238px 50px;
+			background-position: center 60px;
+			border: none;
+			display: block;
+			width: 240px;
+			margin: 20px auto 0 auto;
+			legend {
+				font-family: retrosansregular;
+				color: $wit;
+				font-size: 2em;
+			}
+			>span {
+				display: block;
+				width: 240px;
+				background-color: $wit;
+				@include border-radius(3px 3px 3px 3px);
+				height: 40px;
+			}
+			>span:first-of-type {
+				margin: 0 0 40px 0;
+				label {
+					background-image: url('../images/labels/bandnaam.svg');
+					background-size: 22px 19px;
+				}
+			}
+			>span:nth-of-type(2) {
+				margin: 0 0 23px 0;
+				label {
+					background-image: url('../images/labels/paswoord.svg');
+					background-size: 23px 19px;
+				}
+			}
+			span:nth-of-type(3) {
+				width: 136px;
+				margin: 0 auto 20px auto;
+				background-color: transparent;
+				&::before {
+					z-index: -1;
+					position: absolute;
+					display: block;
+					margin: -15px auto 0 auto;
+					width: 136px;
+					height: 40px;
+					background-image: url('../images/achtergrond/knop.png');
+					background-size: 136px 30px;
+					background-repeat: no-repeat;
+					content: "";
+				}
+			}
+			label {
+				float: left;
+				@include border-radius(34px 34px 34px 34px);
+				background-color: $rood;
+				background-repeat: no-repeat;
+				background-position: center; 
+				width: 34px;
+				height: 34px;
+				display: block;
+				margin: 3px 5px 3px 3px;
+				span{
+					display: none;
+				}
+			}
+			input[type="text"], input[type="password"]{
+				font-family: lettergothicstd;
+				padding: 2px 0 0 0;
+				background-color: $wit;
+				border: none;
+				color: $rood;
+				height: 20px;
+				width: 193px;
+				margin: 10px 0 0 0;
+				font-size: 16px;
+				:active {
+					border: none;
+				}
+			}
+			input[type="submit"] {
+				display: block;
+				text-align: center;
+				-webkit-appearance: none;
+				-webkit-border-radius: 0;
+				border: none;
+				padding: -2px 0 0 0;
+				margin: 34px auto 20px auto;
+				width: 136px;
+				height: 40px;
+				@include border-radius(10px 10px 10px 10px);
+				font-family: retrosansregular;
+				color: $rood;
+				background-color: $wit;
+				font-size: 1.8em;
+			}
+		}
+	}
+	.btn {
+		display: block;
+		text-align: center;
+		-webkit-appearance: none;
+		-webkit-border-radius: 0;
+		border: none;
+		margin: 0 auto 0 auto;
+		width: 136px;
+		height: 40px;
+		@include border-radius(10px 10px 10px 10px);
+		font-family: retrosansregular;
+		color: $rood;
+		background-color: $wit;
+		font-size: 1.8em;
+		padding: 0 0 0 0;
+		&::before {
+			z-index: -1;
+			position: absolute;
+			display: block;
+			margin: -15px auto 0 auto;
+			width: 136px;
+			height: 40px;
+			background-image: url('../images/achtergrond/knop.png');
+			background-size: 136px 30px;
+			background-repeat: no-repeat;
+			content: "";
+		}
+	}
+}

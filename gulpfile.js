@@ -11,9 +11,24 @@ var buffer = require('gulp-buffer');
 var source = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
 var compass = require('gulp-compass');
+var minifyCSS = require('gulp-minify-css');
+var rename = require('gulp-rename');
 
 gulp.task('default', ['watch'], function(){ 
 	console.log("[Gulpfile] Default launched: Watching for changes...");
+});
+
+gulp.task('compass', function() {
+  return gulp.src('_scss/**/*.scss')
+    .pipe(compass({
+      config_file: './config.rb',
+      css: 'css',
+      sass: '_scss'
+    }))
+    .pipe(gulp.dest('css'))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(minifyCSS())
+	.pipe(gulp.dest('css'));
 });
 
 gulp.task('styles', function(){
@@ -24,11 +39,9 @@ gulp.task('styles', function(){
 			sass: '_css/',
 			environment: 'production'
 		}))
-		.on('error', function(err){
-			gutil.log(err.message);
-			gutil.beep();
-			this.emit('end');
-		})
+		.pipe(gulp.dest('css'))
+    	.pipe(rename({ suffix: '.min' }))
+    	.pipe(minifyCSS())
 		.pipe(gulp.dest('./css'))
 	;
 });
@@ -66,7 +79,7 @@ gulp.task('lint', function(){
 
 gulp.task('watch', ['scripts', 'styles'], function(){
 	var jsWatch = gulp.watch(['_js/**/*.js', '_hbs/**/*.hbs'], ['scripts']);
-	var scssWatch = gulp.watch(['_css/**/*.scss'], ['styles']);
+	var scssWatch = gulp.watch(['_scss/**/*.scss'], ['styles']);
 
 	jsWatch.on('change', function(e){
 		console.log('JavaScript File ' + e.path + ' was ' + e.type + ', running tasks...');

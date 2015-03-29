@@ -15,7 +15,7 @@ class BandsDAO
     /* --- Getters ------------------------------------------- */
 
     public function getBandById($id){
-        $sql = "SELECT id, bandname, email, band_image, role_id
+        $sql = "SELECT id, bandname, band_image, role_id
                 FROM `kmn_bands`
                 WHERE `id` = :id";
         $qry = $this->pdo->prepare($sql);
@@ -32,7 +32,7 @@ class BandsDAO
     }
 
     public function getBands(){
-        $sql = "SELECT id, bandname, email, band_image
+        $sql = "SELECT id, bandname, band_image
                 FROM `kmn_bands` 
                 WHERE role_id = 1";
         $qry = $this->pdo->prepare($sql);
@@ -104,14 +104,12 @@ class BandsDAO
     }
 
     public function getBandByLoginData($entry, $password){
-        $sql = "SELECT id, bandname, email, band_image, role_id 
+        $sql = "SELECT id, bandname, band_image, role_id 
                 FROM `kmn_bands` 
-                WHERE (email = :entry1
-                OR bandname = :entry2)
+                WHERE bandname = :entry
                 AND password = :password";
         $qry = $this->pdo->prepare($sql);
-        $qry -> bindValue(':entry1', $entry);
-        $qry -> bindValue(':entry2', $entry);
+        $qry -> bindValue(':entry', $entry);
         $qry -> bindValue(':password', sha1(CONFIG::SALT.$password));
 
         if($qry->execute()){
@@ -128,16 +126,15 @@ class BandsDAO
     public function register($postData){
         $errors = $this -> validateBandData($postData);
         if(empty($errors)){
-            return $this->insertBand($postData['bandname'], $postData['email'], $postData['password'], $postData['band_image']);
+            return $this->insertBand($postData['bandname'], $postData['password'], $postData['band_image']);
         }
         return array();
     }
 
-    public function insertBand($bandname, $email, $password, $band_image){
-        $sql = "INSERT INTO kmn_bands(bandname, email, password, band_image)
-                VALUES(:bandname, :email, :password, :band_image)";
+    public function insertBand($bandname, $password, $band_image){
+        $sql = "INSERT INTO kmn_bands(bandname, password, band_image)
+                VALUES(:bandname, :password, :band_image)";
         $qry = $this->pdo->prepare($sql);
-        $qry -> bindValue(':email', $email);
         $qry -> bindValue(':bandname', htmlentities(strip_tags($bandname)));
         $qry -> bindValue(':password', sha1(CONFIG::SALT.$password));
         $qry -> bindValue(':band_image', $band_image);
@@ -193,11 +190,11 @@ class BandsDAO
             $errors['bandname'] = 'no bandname provided';
         }
 
-        if(empty($data['email'])) {
+        /*if(empty($data['email'])) {
             $errors['email'] = 'no contact email provided';
         }elseif(!filter_var($data['email'], FILTER_VALIDATE_EMAIL)){
             $errors['email'] = 'invalid contact email';
-        }
+        }*/
 
         /*if(empty($data['band_image'])) {
             $errors['band_image'] = 'no band profile image specified';

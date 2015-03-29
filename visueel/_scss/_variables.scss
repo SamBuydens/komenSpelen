@@ -1,0 +1,80 @@
+/* variables */
+/* kleur */
+$rood: #EC0035;
+$wit: #FAF3F1;
+$grijs: #3A3A3A;
+/* mixins */
+
+@mixin rotation($degree) {
+	-webkit-transform: rotate($degree);
+	-moz-transform: rotate($degree);
+	-ms-transform: rotate($degree);
+	-o-transform: rotate($degree);
+	border-transform: rotate($degree);
+}
+
+@mixin border-radius($radius) {
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	-ms-border-radius: $radius;
+	-o-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin border-radius($radius) {
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	-ms-border-radius: $radius;
+	-o-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin box-shadow($top, $left, $blur, $spread, $color) {
+	-webkit-box-shadow:$top $left $blur $spread $color;
+	-moz-box-shadow:$top $left $blur $spread $color;
+	-ms-box-shadow:$top $left $blur $spread $color;
+	-o-box-shadow:$top $left $blur $spread $color;
+	box-shadow:$top $left $blur $spread $color;
+}
+
+@mixin box-shadow-inner($top, $left, $blur, $spread, $color) {
+	-webkit-box-shadow: inset $top $left $blur $spread $color;
+	-moz-box-shadow: inset $top $left $blur $spread $color;
+	-ms-box-shadow: inset $top $left $blur $spread $color;
+	-o-box-shadow: inset $top $left $blur $spread $color;
+	box-shadow: inset $top $left $blur $spread $color;
+}
+
+@mixin text-shadow($size, $blur, $color) {
+	-webkit-text-shadow: $size $blur $color;
+	-moz-text-shadow: $size $blur $color;
+	-ms-text-shadow: $size $blur $color;
+	-o-text-shadow: $size $blur $color;
+	text-shadow: $size $blur $color;
+}
+
+/* font-face */
+
+@font-face {
+    font-family: 'retrosansregular';
+    src: url('../fonts/retrosans/retrosans-webfont.eot');
+    src: url('../fonts/retrosans/retrosans-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/retrosans/retrosans-webfont.woff2') format('woff2'),
+         url('../fonts/retrosans/retrosans-webfont.woff') format('woff'),
+         url('../fonts/retrosans/retrosans-webfont.ttf') format('truetype'),
+         url('../fonts/retrosans/retrosans-webfont.svg#retrosansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'lettergothicstd';
+    src: url('../fonts/lettergothicstd/LetterGothicStd.eot');
+    src: url('../fonts/lettergothicstd/LetterGothicStd.woff') format('woff'),
+         url('../fonts/lettergothicstd/LetterGothicStd.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+

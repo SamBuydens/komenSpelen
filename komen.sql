@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:1125
--- Generation Time: Mar 29, 2015 at 08:41 AM
+-- Generation Time: Mar 29, 2015 at 05:13 PM
 -- Server version: 5.5.38
 -- PHP Version: 5.6.2
 
@@ -30,14 +30,15 @@ CREATE TABLE `kmn_bandbattles` (
 `id` smallint(11) NOT NULL,
   `organiser_id` smallint(11) NOT NULL,
   `name` varchar(64) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kmn_bandbattles`
 --
 
 INSERT INTO `kmn_bandbattles` (`id`, `organiser_id`, `name`) VALUES
-(4, 5, '');
+(4, 5, ''),
+(66, 13, '');
 
 -- --------------------------------------------------------
 
@@ -53,14 +54,15 @@ CREATE TABLE `kmn_bandbattle_events` (
   `location` varchar(120) NOT NULL,
   `latitude` float(10,6) NOT NULL,
   `longitude` float(10,6) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kmn_bandbattle_events`
 --
 
 INSERT INTO `kmn_bandbattle_events` (`id`, `bandbattle_id`, `host_id`, `gig_date`, `location`, `latitude`, `longitude`) VALUES
-(1, 2, 5, '2015-03-30', 'Heldenpark 9900 Eeklo', 51.182846, 3.581908);
+(1, 4, 5, '2015-03-30', 'Heldenpark 9900 Eeklo', 51.182846, 3.581908),
+(6, 66, 13, '0000-00-00', 'Eeklo', 51.182846, 3.581908);
 
 -- --------------------------------------------------------
 
@@ -93,19 +95,23 @@ INSERT INTO `kmn_bandmembers` (`id`, `band_id`, `name`, `instrument`, `image`) V
 CREATE TABLE `kmn_bands` (
 `id` smallint(11) NOT NULL,
   `bandname` varchar(64) NOT NULL,
-  `email` varchar(255) NOT NULL,
   `password` varchar(64) NOT NULL,
   `band_image` varchar(255) NOT NULL,
   `role_id` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kmn_bands`
 --
 
-INSERT INTO `kmn_bands` (`id`, `bandname`, `email`, `password`, `band_image`, `role_id`) VALUES
-(4, 'Admin', 'admin@bandbattles.komenspelen.be', 'f2ee70d4644764d9d2630582f83dfce67a7f02ac', 'Admin.png', 2),
-(5, 'GoatDestroyer', 'destroyer@worshipthegoat.be', 'f8c128b8fc829005b9d1d86cfbc43b0b4af1dd94', 'Goat.jpg', 1);
+INSERT INTO `kmn_bands` (`id`, `bandname`, `password`, `band_image`, `role_id`) VALUES
+(4, 'Admin', 'f2ee70d4644764d9d2630582f83dfce67a7f02ac', 'Admin.png', 2),
+(5, 'GoatDestroyer', 'f8c128b8fc829005b9d1d86cfbc43b0b4af1dd94', 'Goat.jpg', 1),
+(13, 'Thorr', 'b3c1b1e6e9907bc0c05fb734afd20efc2a2e4480', '10420082_663246830457798_8240162758600882965_n.jpg', 1),
+(14, 'TaliBand', 'd16b99ffd9eba02103d7b89c4335eea0f2d86b1e', 'the_taliband.jpg', 1),
+(15, 'TheDerps', '653f63b7dfbd9a5a6d40345b628355714ff172a3', 'Screen Shot 2015-03-19 at 17.02.40.png', 1),
+(16, 'TheDerps', '653f63b7dfbd9a5a6d40345b628355714ff172a3', 'Screen Shot 2015-03-19 at 17.02.40.png', 1),
+(17, 'Thorr', 'c8e4bc0a1223e20f0713502e13b690c4673a0a36', 'Goat.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -140,15 +146,15 @@ CREATE TABLE `kmn_invite_keys` (
   `bandbattle_id` smallint(11) NOT NULL,
   `invite_code` varchar(64) NOT NULL,
   `activated` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kmn_invite_keys`
 --
 
 INSERT INTO `kmn_invite_keys` (`id`, `bandbattle_id`, `invite_code`, `activated`) VALUES
-(1, 2, '5515458c90203', 0),
-(2, 4, '5517626555633', 0);
+(2, 4, '5517626555633', 0),
+(3, 66, '5517e4ddcc163', 0);
 
 -- --------------------------------------------------------
 
@@ -252,12 +258,12 @@ ALTER TABLE `kmn_rating_quota`
 -- AUTO_INCREMENT for table `kmn_bandbattles`
 --
 ALTER TABLE `kmn_bandbattles`
-MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=67;
 --
 -- AUTO_INCREMENT for table `kmn_bandbattle_events`
 --
 ALTER TABLE `kmn_bandbattle_events`
-MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `kmn_bandmembers`
 --
@@ -267,7 +273,7 @@ MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `kmn_bands`
 --
 ALTER TABLE `kmn_bands`
-MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `kmn_band_images`
 --
@@ -277,7 +283,7 @@ MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `kmn_invite_keys`
 --
 ALTER TABLE `kmn_invite_keys`
-MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` smallint(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `kmn_ratings`
 --

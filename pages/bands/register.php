@@ -1,34 +1,43 @@
-<div id="content">
-    <div id="content_wrapper">
-    <article class="registrationScreen">
-        <header>
-            <h1>Register Band</h1>
-        </header>
-        <link rel="stylesheet" href="css/register.css">
-        <form class="registerForm" action="index.php?p=register" method="post" enctype="multipart/form-data">
-            <fieldset class="imageUpload">
-                <div class="btnImgUpload" style="cursor:pointer;" onclick="getFile()"><span>+ Image</span></div>
-                <div class="imagePreview">&nbsp;</div>
-                <div style='height: 0px; width:0px; overflow:hidden;'><input class="upfile" type="file" name="image" id='image' /></div>
-        
-                <input tabindex="1" type="text" name="bandname" required placeholder="banname" id="txtBandname" <?php if(!empty($_SESSION['errors']['bandname'])){ echo "class=\"error\""; } ?> value="<?php if(empty($_SESSION['errors']['bandname']) && !empty($_POST['bandname'])){ echo $_POST['bandname']; } ?>"/>
-         
-                <input tabindex="2" type="email" name="email" required placeholder="mail-address" id="txtEmail" <?php if(!empty($_SESSION['errors']['email'])){ echo "class=\"error\""; } ?> value="<?php if(empty($_SESSION['errors']['email']) && !empty($_POST['email'])){ echo $_POST['email']; } ?>"/>
-          
-                <input tabindex="3" type="password" name="password" required placeholder="password" id="txtPassword" <?php if(!empty($_SESSION['errors']['password'])){ echo "class=\"error\""; } ?> value="<?php if(empty($_SESSION['errors']['password']) && !empty($_POST['password'])){ echo $_POST['password']; } ?>"/>
-          
-                <input tabindex="4" type="password" name="repeat_pass" required placeholder="repeat password" id="txtConfPassword" <?php if(!empty($_SESSION['errors']['repeat_pass'])){ echo "class=\"error\""; } ?> value="<?php if(empty($_SESSION['errors']['repeat_pass']) && !empty($_POST['repeat_pass'])){ echo $_POST['repeat_pass']; } ?>"/>
-         
-                <input tabindex="5" type="submit" name="submit" id="btnRegister" value="Registreer Band"/>
-            </fieldset>
-        </form>
+<div id="container">
+    <article id="register">
+        <section>
+            <header>
+                <h1>Registreren</h1>
+            </header>
+            <form class="registerForm" action="index.php?p=register" method="post" enctype="multipart/form-data">
+                <fieldset>
+                    <a>terug</a>
+                    <legend>registreren</legend>
+                    <span class=".imgPreview">
+                        <div class="btnImgUpload" style="cursor:pointer;" onclick="getFile()">&nbsp;</div>
+                        <div class="imagePreview">&nbsp;</div>
+                        <div style='height: 0px; width:0px; overflow:hidden;'><input class="upfile" type="file" name="image" id='image' /></div>
+                    </span>
+                    <span>
+                        <label for="txtLogin"><span>bandnaam</span></label>
+                        <input tabindex="1" type="text" name="bandname" required placeholder="bandname" id="txtLogin" <?php if(!empty($_SESSION['errors']['bandname'])){ echo "class=\"error\""; } ?> value="<?php if(empty($_SESSION['errors']['bandname']) && !empty($_POST['bandname'])){ echo $_POST['bandname']; } ?>"/>
+                    </span>
+                    <span>
+                        <label for="txtPassword"><span>paswoord</span></label>
+                        <input tabindex="3" type="password" name="password" required placeholder="password" id="txtPassword" <?php if(!empty($_SESSION['errors']['password'])){ echo "class=\"error\""; } ?> value="<?php if(empty($_SESSION['errors']['password']) && !empty($_POST['password'])){ echo $_POST['password']; } ?>"/>
+                    </span>
+                    <span>
+                        <label for="txtPasswordRepeat"><span>paswoord</span></label>
+                        <input tabindex="4" type="password" name="repeat_pass" required placeholder="repeat password" id="txtPasswordRepeat" <?php if(!empty($_SESSION['errors']['repeat_pass'])){ echo "class=\"error\""; } ?> value="<?php if(empty($_SESSION['errors']['repeat_pass']) && !empty($_POST['repeat_pass'])){ echo $_POST['repeat_pass']; } ?>"/>
+                    </span>
+                    <span>
+                        <input tabindex="5" type="submit" name="submit" id="btnRegister" value="Registreer Band"/>
+                    </span>
+                </fieldset>
+            </form>
+        </section>
     </article>
-    </div>
 </div>
 <script src="js/vendor/jquery.min.js"></script>
 <script>
     var errors = [];
-    var imagePreview = $('.imagePreview');
+    //var imagePreview = $('.imagePreview');
+    var imagePreview = $('.imgPreview');
     var btnImgUpload = $('.btnImgUpload');
 
     function init()
@@ -57,6 +66,7 @@
             reader.onload = (function (tFile) {
                 return function (evt) {
                     imagePreview.css("background-image", "url('"+ evt.target.result +"')");
+                    //btnImgUpload.css("background-image", "url('"+ evt.target.result +"')");
                 };
             }(file));
             reader.readAsDataURL(file);

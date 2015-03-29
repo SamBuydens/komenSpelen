@@ -1,0 +1,104 @@
+#bands {
+	max-height: 100vh;
+	header {
+		h1 {
+			color: $wit;
+			font-family: retrosansregular;
+			text-align: center;
+			font-size: 2em;
+			margin: 15px 0 25px 0;
+		}
+	}
+	li {
+		margin: 0 auto 20px auto;
+		display: block;
+			span {
+				margin: 0 auto 0 auto;
+				display: block;
+				width: 240px;
+				height: 40px;
+				padding: 10px 10px 10px 10px;
+				background-color: $wit;
+				@include border-radius(20px 20px 20px 20px);
+				img {
+					margin: 0 10px 0 0;
+					float: left;
+					width: 40px;
+					height: 40px;
+					@include border-radius(40px 40px 40px 40px);
+				}
+				p {
+					margin: 7px 0 0 0;
+					font-family: retrosansregular;
+					color: $rood;
+					font-size: 1.4em;
+				}
+				p:last-of-type {
+					font-size: 1em;
+					float: right;
+					margin: -22px 10px 0 0;
+				}
+			}
+			&:first-of-type {
+				span {
+					//@include box-shadow-inner(0, 0px, 0px, 2px, $rood);
+					width: 260px;
+					p {
+						margin: 7px 0 0 0;
+						font-family: retrosansregular;
+						color: $rood;
+						font-size: 1.8em;
+					}
+					p:last-of-type {
+						font-size: 1.3em;
+						float: right;
+						margin: -25px 10px 0 0;
+					}
+					&::after {
+						z-index: -1;
+						position: absolute;
+						display: block;
+						margin: -5px auto 0 auto;
+						width: 270px;
+						height: 40px;
+						background-image: url('../images/achtergrond/balkDiepteOnderaan.svg');
+						background-size: 260px 40px;
+						background-repeat: no-repeat;
+						content: "";
+					}
+				}
+			}
+		}
+	.add-band-holder {
+		background-color: transparent;
+		border: 1px dashed $wit;
+		.btn {
+			display: block;
+			text-align: center;
+			-webkit-appearance: none;
+			-webkit-border-radius: 0;
+			border: none;
+			margin: 20px auto 0 auto;
+			width: 136px;
+			height: 40px;
+			@include border-radius(10px 10px 10px 10px);
+			font-family: retrosansregular;
+			color: $rood;
+			background-color: $wit;
+			font-size: 1.8em;
+			padding: 0 0 0 0;
+			&::before {
+				z-index: -1;
+				position: absolute;
+				display: block;
+				margin: -20px auto 0 auto;
+				width: 136px;
+				height: 40px;
+				background-image: url('../images/achtergrond/knop.png');
+				background-size: 136px 30px;
+				background-repeat: no-repeat;
+				content: "";
+			}
+		}
+	}
+}

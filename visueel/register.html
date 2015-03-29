@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Komen Spelen</title>
+	<link rel="stylesheet" type="text/css" href="css/screen.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+	<div id="container">
+		<article id="register">
+			<section>
+				<header>
+					<h1>Registreren</h1>
+				</header>
+				<form class="loginForm" action="index.php?p=login" method="post">
+					<fieldset>
+						<a>terug</a>
+						<legend>registreren</legend>
+						<span>
+							<input type="file" name="img">
+						</span>
+						<span>
+							<label for="txtLogin"><span>bandnaam</span></label>
+							<input tabindex="1" type="text" name="login" required placeholder="bandname or e-mail" id="txtLogin" />
+						</span>
+						<span>
+							<label for="txtPassword"><span>paswoord</span></label>
+							<input tabindex="2" type="password" name="password" required placeholder="password" id="txtPassword" />
+						</span>
+						<span>
+							<label for="txtPasswordRepeat"><span>paswoord</span></label>
+							<input tabindex="2" type="password" name="password" required placeholder="password herhalen" id="txtPasswordRepeat" />
+						</span>
+						<span>
+							<label for="txtGenre"><span>genre</span></label>
+							<input tabindex="3" type="text" name="genre" required placeholder="genre" id="txtGenre"/>
+						</span>
+						<span>
+							<input tabindex="4" type="submit" name="submit" id="btnRegister" value="registreer" class="btn"/>
+						</span>
+					</fieldset>
+				</form>
+			</section>
+		</article>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Komen Spelen</title>
+	<link rel="stylesheet" type="text/css" href="css/screen.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+	<div id="container">
+		<article id="login">
+			<section>
+				<header>
+					<h1><span>Komen Spelen</span></h1>
+				</header>
+				<form class="loginForm" action="index.php?p=login" method="post">
+					<fieldset>
+						<legend>aanmelden</legend>
+						<span>
+							<label for="txtLogin"><span>bandnaam</span></label>
+							<input tabindex="1" type="text" name="login" required placeholder="bandname or e-mail" id="txtLogin" />
+						</span>
+						<span>
+							<label for="txtPassword"><span>paswoord</span></label>
+							<input tabindex="2" type="password" name="password" required placeholder="password" id="txtPassword" />
+						</span>
+						<span >
+							<input tabindex="3" type="submit" name="submit" id="btnLogin" value="aanmelden" class="btn"/>
+						</span>
+					</fieldset>
+				</form>
+				<button class="btn" type="button">registreer</button> 
+			</section>
+		</article>
+	</div>
+	
+</body>
+</html>

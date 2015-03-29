@@ -1,0 +1,102 @@
+#score {
+	color: $wit;
+	font-family: retrosansregular;
+	header {
+		padding: 20px auto 0 auto;
+		text-align: center;
+		h1 {
+			font-size: 1.8em;
+			margin: 15px 0 15px 0;
+		}
+	}
+	.handjeuhs {
+		display: block;
+		width: 240px;
+		height: 40px;
+		margin: 0 auto -10px auto;
+		overflow: hidden;
+		.handjeuh { 
+			min-width: 4px;
+			min-height: 45px;
+			max-width: 20px;
+			display: block;
+			background-image: url('../images/iconen/handjeuh.svg');
+			background-size: contain;
+			background-repeat: no-repeat;
+		}
+	}
+	section >span {
+		font-size: 1.4em;
+		display: block;
+		width: 260px;
+		height: 110px;
+		margin: -10px auto 0 auto;
+		padding: 0 0 0 0;
+		p {
+			margin: 0 0 0 10px;
+		}
+		>p:first-of-type {
+			float: left;
+		}
+		>p:nth-of-type(2) {
+			float: right;
+			margin: 0 10px 0 0;
+			font-size: 1em;
+		}
+	}
+	.slider {
+		border: 2px solid $wit;
+		@include border-radius(20px 20px 20px 20px);
+		overflow: hidden;
+		width: 260px;
+		height: 25px;
+		margin: 10px auto 0 auto;
+		float: left;
+		display: block;
+		>span {
+			@include box-shadow-inner(0, 0px, 0px, 2px, $rood);
+			@include border-radius(20px 20px 20px 20px);
+			background-color: $wit;
+			max-width: 260px;
+			min-width: 20px;
+			width: 23px;
+			height: 21px;
+			margin: 2px 0 4px 0;
+			display: block;
+			p {
+				color: $rood;
+				float: left;
+				margin: 1px 0 0 8px;
+				font-size: 0.8em;
+			}
+		}
+	}
+	.btn {
+		display: block;
+		text-align: center;
+		-webkit-appearance: none;
+		-webkit-border-radius: 0;
+		border: none;
+		margin: 20px auto 0 auto;
+		width: 136px;
+		height: 40px;
+		@include border-radius(10px 10px 10px 10px);
+		font-family: retrosansregular;
+		color: $rood;
+		background-color: $wit;
+		font-size: 1.8em;
+		padding: 0 0 0 0;
+		&::before {
+			z-index: -1;
+			position: absolute;
+			display: block;
+			margin: -20px auto 0 auto;
+			width: 136px;
+			height: 40px;
+			background-image: url('../images/achtergrond/knop.png');
+			background-size: 136px 30px;
+			background-repeat: no-repeat;
+			content: "";
+		}
+	}
+}

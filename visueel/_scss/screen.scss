@@ -1,0 +1,30 @@
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) 
+and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 40/71)
+{
+
+@import '_variables';
+@import '_reset';
+
+@import '_login';
+@import '_register';
+@import '_menu';
+@import '_bands';
+@import '_score';
+@import '_detail';
+@import '_members';
+@import '_bio';
+@import '_photo';
+@import '_comments';
+@import '_live';
+
+	body {
+		background-color: $rood;
+		#container {
+		}
+		article {
+			width: 100vw;
+			float: left;
+	   }
+	}
+
+}

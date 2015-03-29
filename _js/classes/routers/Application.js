@@ -1,5 +1,7 @@
 var BandbattleCreateView = require('../views/BandbattleCreateView.js');
 var BandBattleDetailView = require('../views/BandBattleDetailView.js');
+var BandDetailView = require('../views/BandDetailView.js');
+var BandRatingView = require('../views/BandRatingView.js');
 
 var Application = Backbone.Router.extend({
 
@@ -36,11 +38,15 @@ var Application = Backbone.Router.extend({
 	},
 
 	bandRatingScreen: function(id){ console.log("[Application] -- bandRatingScreen (id:"+id+") -------"); this.checkUserLogin();
-
+		this.empty();
+		this.ratingView = new BandRatingView();
+		$('.container').append(this.ratingView.render().el);
 	},
 
 	bandDetailScreen: function(id){ console.log("[Application] -- bandDetailScreen (id:"+id+") -------"); this.checkUserLogin();
-
+		this.empty();
+		this.bandDetailView = new BandDetailView();
+		$('.container').append(this.bandDetailView.render().el);
 	},
 
 	default : function(){ console.log("[Application] -- Launching Default -------"); this.checkUserLogin(); 

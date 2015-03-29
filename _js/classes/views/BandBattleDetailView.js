@@ -7,8 +7,8 @@ var BandbattleDetailView = Backbone.View.extend({
 	template: template,
 	inviteTemplate: inviteTemplate,
 	createEventTemplate: createEventTemplate,
-	tagName: 'div',
-	className: 'detail',
+	tagName: 'article',
+	className: 'bandbattle-detail',
 
 	events: {
 		'click .send-invite-btn': 'sendInvite',

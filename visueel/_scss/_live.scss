@@ -1,0 +1,55 @@
+#live {
+	header {
+		h1 {
+			color: $wit;
+			font-family: retrosansregular;
+			text-align: center;
+			font-size: 2em;
+			margin: 15px 0 20px 0;
+		}
+	}
+	section >p:first-of-type{
+		color: $wit;
+		font-family: retrosansregular;
+		text-align: center;
+		font-size: 1.8em;
+	}
+	canvas {
+		width: 240px;
+		display: block;
+		margin: 0 auto 0 auto;
+		background-color: $wit;
+	}
+	p {
+		color: $wit;
+		font-family: retrosansregular;
+		text-align: center;
+		font-size: 1em;
+	}
+	button {
+		border: none;
+		margin: 40px auto 0 auto;
+		background-color: $wit;
+		display: block;
+		width: 100px;
+		height: 100px;
+		@include border-radius(50px 50px 50px 50px);
+		color: $rood;
+		font-family: retrosansregular;
+		text-align: center;
+		font-size: 1.8em;
+		&::after {
+			z-index: -1;
+			position: absolute;
+			display: block;
+			margin: -80px 0 0 -105px;
+			width: 300px;
+			height: 160px;
+			background-image: url('../images/achtergrond/mark.svg');
+			background-size: contain;
+			background-position: center bottom;
+			background-repeat: no-repeat;
+			content: "";
+		}
+	}
+}

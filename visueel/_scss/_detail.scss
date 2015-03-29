@@ -1,0 +1,102 @@
+#band-detail {
+	header {
+		h1 {
+			color: $wit;
+			font-family: retrosansregular;
+			text-align: center;
+			font-size: 2em;
+			margin: 15px 0 20px 0;
+		}
+	}
+	span:first-of-type {
+		@include border-radius(6px 6px 6px 6px);
+		display: block;
+		overflow: hidden;
+		margin: 0 auto 0 auto;
+		width: 260px;
+		border: 2px $wit solid;
+		iframe {
+		}
+		&::after {
+			z-index: -1;
+			position: absolute;
+			display: block;
+			float: left;
+			margin: -50px 0 0 -2px;
+			width: 273px;
+			height: 110px;
+			background-image: url('../images/achtergrond/tape.svg');
+			background-size: contain;
+			background-position: center bottom;
+			background-repeat: no-repeat;
+			content: "";
+		}
+	}
+	p {
+		display: block;
+		max-width: 160px;
+		text-align: center;
+		color: $wit;
+		font-family: retrosansregular;
+		font-size: 1.8em;
+		margin: 60px auto 0 auto;
+	}
+}
+
+	
+#detail-nav {
+		
+		display: block;
+		text-align: center;
+		height: 50px;
+		width: 220px;
+		margin: 40px 0 0 50px;
+		position: absolute;
+		bottom: 30px;
+		li {
+			background-size: 20px 20px;
+			background-repeat: no-repeat;
+			background-position: center;
+			margin: 0 2px 0 2px !important;
+			display: block;
+			float: left;
+			@include border-radius(20px 20px 20px 20px);
+			width: 40px;
+			height: 40px;
+			background-color: $wit;
+			p {
+				display: none;
+			}
+		}
+		#active {
+			&::after {
+				z-index: -1;
+				position: absolute;
+				display: block;
+				float: left;
+				margin: -10px 0 0 -4px;
+				width: 48px;
+				height: 48px;
+				background-image: url('../images/achtergrond/pointer.svg');
+				background-size: contain;
+				background-position: center bottom;
+				background-repeat: no-repeat;
+				content: "";
+			}
+		}
+		li:first-of-type {
+			background-image: url('../images/iconen/bio.svg');
+		}
+		li:nth-of-type(2) {
+			background-image: url('../images/iconen/leden.svg');
+		}
+		li:nth-of-type(3) {
+			background-image: url('../images/iconen/map.svg');
+		}
+		li:nth-of-type(4) {
+			background-image: url('../images/iconen/camera.svg');
+		}
+		li:nth-of-type(5) {
+			background-image: url('../images/iconen/commentaar.svg');
+		}
+	}

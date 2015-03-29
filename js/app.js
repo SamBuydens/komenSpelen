@@ -41,35 +41,63 @@ function readCookie(name) {
 }
 
 init();
-},{"./classes/routers/Application.js":7,"hbsfy/runtime":17}],2:[function(require,module,exports){
+},{"./classes/routers/Application.js":11,"hbsfy/runtime":23}],2:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   return "<header>\n	<h1>Accept Invite</h1>\n</header>\n\n<input type=\"text\" name=\"location\" class=\"location\" placeholder=\"Event Location\"/>\n<input type=\"hidden\" name=\"latitude\" class=\"latitude\" value=\"51.182845\"/>\n<input type=\"hidden\" name=\"longitude\" class=\"longitude\" value=\"3.581908\"/>\n<button name=\"accept invite\" class=\"accept-invite-btn\">\n	Accept Invite\n</button>";
   },"useData":true});
 
-},{"hbsfy/runtime":17}],3:[function(require,module,exports){
+},{"hbsfy/runtime":23}],3:[function(require,module,exports){
+// hbsfy compiled Handlebars template
+var HandlebarsCompiler = require('hbsfy/runtime');
+module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  return "<section>\n	<header>\n		<h1>adres</h1>\n	</header>\n	<span>\n		<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5034.092941226263!2d4.319042444458007!3d50.88585026523365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3c3eea4dee6f9%3A0x7fff6026e637a25d!2sJette!5e0!3m2!1snl!2sbe!4v1427625353303\" width=\"260\" height=\"140\" frameborder=\"0\" style=\"border:0\"></iframe>\n	</span>\n	<p>\n		ergensstraat 12\n		3500 Hasselt\n	</p>\n</section>\n<ul id=\"detail-nav\">\n	<li>\n		<svg viewBox=\"0 0 20 20\"><use xlink:href=\"images/iconen/bio.svg\"></use></svg>\n		<p>leden</p>\n	</li>\n	<li>\n		<p>\n			maps\n		</p>\n	</li>\n	<li>\n		<p>\n			bio\n		</p>\n	</li>\n	<li>\n		<p>\n			foto's\n		</p>\n	</li>\n	<li>\n		<p>\n			commentaar\n		</p>\n	</li>\n</ul>";
+  },"useData":true});
+
+},{"hbsfy/runtime":23}],4:[function(require,module,exports){
+// hbsfy compiled Handlebars template
+var HandlebarsCompiler = require('hbsfy/runtime');
+module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  return "<article id=\"score\">\n	<section>\n		<header>\n			<h1>score: evil invaders</h1>\n		</header>\n		<span>\n			<span class=\"handjeuhs\">\n				 <span class=\"handjeuh\">\n\n				 </span>\n			</span>\n			<span class=\"slider\">\n				<span class=\"slider-fill\">\n					\n				</span>\n			</span>\n			<p>\n				criteria\n			</p>\n			<p class=\"score\">\n				0\n			</p>\n		</span>\n		<span>\n			<span class=\"handjeuhs\">\n				 <span class=\"handjeuh\">\n\n				 </span>\n			</span>\n			<span class=\"slider\">\n				<span class=\"slider-fill\">\n					\n				</span>\n			</span>\n			<p>\n				criteria\n			</p>\n			<p class=\"score\">\n				0\n			</p>\n		</span>\n		<span>\n			<span class=\"handjeuhs\">\n				 <span class=\"handjeuh\">\n\n				 </span>\n			</span>\n			<span class=\"slider\">\n				<span class=\"slider-fill\">\n					\n				</span>\n			</span>\n			<p>\n				criteria\n			</p>\n			<p class=\"score\">\n				0\n			</p>\n		</span>\n		<button class=\"btn\" type=\"button\">toekennen</button> \n	</section>\n</article>";
+  },"useData":true});
+
+},{"hbsfy/runtime":23}],5:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   return "<h1>No bandbattle joined:</h1>\n<h3>Create Bandbattle & Event?</h3>\n\n<input type=\"text\" name=\"location\" class=\"location\" placeholder=\"Event Location\"/>\n<input type=\"hidden\" name=\"latitude\" class=\"latitude\" value=\"51.182845\"/>\n<input type=\"hidden\" name=\"longitude\" class=\"longitude\" value=\"3.581908\"/>\n<input type=\"date\" name=\"date\" class=\"gigdate\" placeholder=\"Event Date\"/>\n<button name=\"create bandbattle\" class=\"create-battle-btn\">\n	Create Bandbattle\n</button>";
   },"useData":true});
 
-},{"hbsfy/runtime":17}],4:[function(require,module,exports){
+},{"hbsfy/runtime":23}],6:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   return "<header>\n	<h1>Your Bandbattle</h1>\n</header>\n\n<section class=\"invite\">\n	\n</section>\n\n<section class=\"bandEvents\">\n	\n</section>";
   },"useData":true});
 
-},{"hbsfy/runtime":17}],5:[function(require,module,exports){
+},{"hbsfy/runtime":23}],7:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   return "<header>\n	<h1>Send Invites</h1>\n</header>\n\n<input type=\"email\" name=\"email\" class=\"email\" placeholder=\"e-mail adress\"/>\n<button name=\"send invite\" class=\"send-invite-btn\">\n	Send Invite\n</button>";
   },"useData":true});
 
-},{"hbsfy/runtime":17}],6:[function(require,module,exports){
+},{"hbsfy/runtime":23}],8:[function(require,module,exports){
+var Band = Backbone.Model.extend({
+	
+	defaults: {
+		"id": 0,
+		"bandname": "",
+		"band_image": "",
+		"role_id": 0,
+		"members": []
+	}
+
+});
+
+module.exports = Band;
+},{}],9:[function(require,module,exports){
 var Bandbattle = Backbone.Model.extend({
 	
 	urlRoot: window.www_root+"api/bandbattles/",
@@ -94,9 +122,28 @@ var Bandbattle = Backbone.Model.extend({
 });
 
 module.exports = Bandbattle;
-},{}],7:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
+var Rating = Backbone.Model.extend({
+	
+	defaults: {
+		"id": 0, 
+		"quota_id": 0, 
+		"rated_id": 0, 
+		"rater_id": 0, 
+		"score": 0, 
+		"quota": "", 
+		"band_playing": {},
+		"band_rated": {}
+	}
+
+});
+
+module.exports = Rating;
+},{}],11:[function(require,module,exports){
 var BandbattleCreateView = require('../views/BandbattleCreateView.js');
 var BandBattleDetailView = require('../views/BandBattleDetailView.js');
+var BandDetailView = require('../views/BandDetailView.js');
+var BandRatingView = require('../views/BandRatingView.js');
 
 var Application = Backbone.Router.extend({
 
@@ -133,11 +180,15 @@ var Application = Backbone.Router.extend({
 	},
 
 	bandRatingScreen: function(id){ console.log("[Application] -- bandRatingScreen (id:"+id+") -------"); this.checkUserLogin();
-
+		this.empty();
+		this.ratingView = new BandRatingView();
+		$('.container').append(this.ratingView.render().el);
 	},
 
 	bandDetailScreen: function(id){ console.log("[Application] -- bandDetailScreen (id:"+id+") -------"); this.checkUserLogin();
-
+		this.empty();
+		this.bandDetailView = new BandDetailView();
+		$('.container').append(this.bandDetailView.render().el);
 	},
 
 	default : function(){ console.log("[Application] -- Launching Default -------"); this.checkUserLogin(); 
@@ -187,7 +238,7 @@ var Application = Backbone.Router.extend({
 });
 
 module.exports = Application;
-},{"../views/BandBattleDetailView.js":8,"../views/BandbattleCreateView.js":9}],8:[function(require,module,exports){
+},{"../views/BandBattleDetailView.js":12,"../views/BandDetailView.js":13,"../views/BandRatingView.js":14,"../views/BandbattleCreateView.js":15}],12:[function(require,module,exports){
 var template = require('../../../_hbs/bandbattleDetail.hbs');
 var inviteTemplate = require('../../../_hbs/organiseInvitations.hbs');
 var createEventTemplate = require('../../../_hbs/acceptInvitation.hbs');
@@ -197,8 +248,8 @@ var BandbattleDetailView = Backbone.View.extend({
 	template: template,
 	inviteTemplate: inviteTemplate,
 	createEventTemplate: createEventTemplate,
-	tagName: 'div',
-	className: 'detail',
+	tagName: 'article',
+	className: 'bandbattle-detail',
 
 	events: {
 		'click .send-invite-btn': 'sendInvite',
@@ -273,7 +324,63 @@ var BandbattleDetailView = Backbone.View.extend({
 });
 
 module.exports = BandbattleDetailView;
-},{"../../../_hbs/acceptInvitation.hbs":2,"../../../_hbs/bandbattleDetail.hbs":4,"../../../_hbs/organiseInvitations.hbs":5,"../models/BandBattle.js":6}],9:[function(require,module,exports){
+},{"../../../_hbs/acceptInvitation.hbs":2,"../../../_hbs/bandbattleDetail.hbs":6,"../../../_hbs/organiseInvitations.hbs":7,"../models/BandBattle.js":9}],13:[function(require,module,exports){
+var template = require('../../../_hbs/bandDetail.hbs');
+var Band = require('../models/Band.js');
+var BandDetailView = Backbone.View.extend({ 
+
+	template: template,
+	tagName: 'article',
+	className: 'band-detail',
+
+	events: {
+		
+	},
+
+	empty: function(){
+		$('.container').empty();
+	},
+
+	render: function(){ 
+		this.empty();
+		this.$el.html(this.template());
+		this.$container = this.$el.find('.container');
+
+		return this;
+	}
+
+});
+
+module.exports = BandDetailView;
+},{"../../../_hbs/bandDetail.hbs":3,"../models/Band.js":8}],14:[function(require,module,exports){
+var template = require('../../../_hbs/bandScoring.hbs');
+var Rating = require('../models/Rating.js');
+var BandRatingView = Backbone.View.extend({ 
+
+	template: template,
+	tagName: 'div',
+	className: 'detail',
+
+	events: {
+		
+	},
+
+	empty: function(){
+		$('.container').empty();
+	},
+
+	render: function(){ 
+		this.empty();
+		this.$el.html(this.template());
+		this.$container = this.$el.find('.container');
+
+		return this;
+	}
+
+});
+
+module.exports = BandRatingView;
+},{"../../../_hbs/bandScoring.hbs":4,"../models/Rating.js":10}],15:[function(require,module,exports){
 var template = require('../../../_hbs/bandbattleCreate.hbs');
 
 var BandbattleCreateView = Backbone.View.extend({
@@ -322,7 +429,7 @@ var BandbattleCreateView = Backbone.View.extend({
 });
 
 module.exports = BandbattleCreateView;
-},{"../../../_hbs/bandbattleCreate.hbs":3}],10:[function(require,module,exports){
+},{"../../../_hbs/bandbattleCreate.hbs":5}],16:[function(require,module,exports){
 "use strict";
 /*globals Handlebars: true */
 var base = require("./handlebars/base");
@@ -358,7 +465,7 @@ Handlebars.create = create;
 Handlebars['default'] = Handlebars;
 
 exports["default"] = Handlebars;
-},{"./handlebars/base":11,"./handlebars/exception":12,"./handlebars/runtime":13,"./handlebars/safe-string":14,"./handlebars/utils":15}],11:[function(require,module,exports){
+},{"./handlebars/base":17,"./handlebars/exception":18,"./handlebars/runtime":19,"./handlebars/safe-string":20,"./handlebars/utils":21}],17:[function(require,module,exports){
 "use strict";
 var Utils = require("./utils");
 var Exception = require("./exception")["default"];
@@ -590,7 +697,7 @@ var createFrame = function(object) {
   return frame;
 };
 exports.createFrame = createFrame;
-},{"./exception":12,"./utils":15}],12:[function(require,module,exports){
+},{"./exception":18,"./utils":21}],18:[function(require,module,exports){
 "use strict";
 
 var errorProps = ['description', 'fileName', 'lineNumber', 'message', 'name', 'number', 'stack'];
@@ -619,7 +726,7 @@ function Exception(message, node) {
 Exception.prototype = new Error();
 
 exports["default"] = Exception;
-},{}],13:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 "use strict";
 var Utils = require("./utils");
 var Exception = require("./exception")["default"];
@@ -813,7 +920,7 @@ exports.noop = noop;function initData(context, data) {
   }
   return data;
 }
-},{"./base":11,"./exception":12,"./utils":15}],14:[function(require,module,exports){
+},{"./base":17,"./exception":18,"./utils":21}],20:[function(require,module,exports){
 "use strict";
 // Build out our basic SafeString type
 function SafeString(string) {
@@ -825,7 +932,7 @@ SafeString.prototype.toString = function() {
 };
 
 exports["default"] = SafeString;
-},{}],15:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 "use strict";
 /*jshint -W004 */
 var SafeString = require("./safe-string")["default"];
@@ -914,15 +1021,15 @@ exports.isEmpty = isEmpty;function appendContextPath(contextPath, id) {
 }
 
 exports.appendContextPath = appendContextPath;
-},{"./safe-string":14}],16:[function(require,module,exports){
+},{"./safe-string":20}],22:[function(require,module,exports){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime');
 
-},{"./dist/cjs/handlebars.runtime":10}],17:[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":16}],23:[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":16}]},{},[1])
+},{"handlebars/runtime":22}]},{},[1])
 
 
 //# sourceMappingURL=app.js.map
